@@ -7,12 +7,11 @@ package com.mycompany.proyectoua2.model;
 
 /**
  *
- * @author Vinil
+ * @author Carlos
  */
-public class Artista {
+public class Disco {
     int id;
     String nombre;
-    String nacionalidad;
     String foto;
 
     public int getId() {
@@ -31,14 +30,6 @@ public class Artista {
         this.nombre = nombre;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
-
     public String getFoto() {
         return foto;
     }
@@ -49,8 +40,9 @@ public class Artista {
 
     @Override
     public String toString() {
-        return "Artista{" + "id=" + id + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + ", foto=" + foto + '}';
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + '}';
     }
     
     
+   
 }
