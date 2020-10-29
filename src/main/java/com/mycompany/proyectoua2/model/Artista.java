@@ -10,10 +10,10 @@ package com.mycompany.proyectoua2.model;
  * @author Vinil
  */
 public class Artista {
-    int id;
-    String nombre;
-    String nacionalidad;
-    String foto;
+    protected int id;
+    protected String nombre;
+    protected String nacionalidad;
+    protected String foto;
 
     public int getId() {
         return id;
