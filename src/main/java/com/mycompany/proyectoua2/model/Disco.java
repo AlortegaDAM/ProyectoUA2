@@ -10,9 +10,9 @@ package com.mycompany.proyectoua2.model;
  * @author Carlos
  */
 public class Disco {
-    int id;
-    String nombre;
-    String foto;
+    private int id;
+    private String nombre;
+    private String foto;
 
     public int getId() {
         return id;
