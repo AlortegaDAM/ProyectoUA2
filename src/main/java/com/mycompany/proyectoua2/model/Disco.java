@@ -5,11 +5,13 @@
  */
 package com.mycompany.proyectoua2.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Carlos
  */
-public class Disco {
+public class Disco implements Serializable{
     private int id;
     private String nombre;
     private String foto;

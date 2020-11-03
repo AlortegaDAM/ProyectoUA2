@@ -5,15 +5,17 @@
  */
 package com.mycompany.proyectoua2.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Vinil
  */
-public class Artista {
-    protected int id;
-    protected String nombre;
-    protected String nacionalidad;
-    protected String foto;
+public class Artista implements Serializable{
+    private int id;
+    private String nombre;
+    private String nacionalidad;
+    private String foto;
 
     public int getId() {
         return id;
