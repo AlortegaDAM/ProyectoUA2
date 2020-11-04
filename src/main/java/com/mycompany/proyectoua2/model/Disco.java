@@ -6,6 +6,7 @@
 package com.mycompany.proyectoua2.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Disco implements Serializable{
     private int id;
     private String nombre;
     private String foto;
+    private Artista artista;
+    private ArrayList<Cancion> canciones;
 
     public int getId() {
         return id;
@@ -43,6 +46,34 @@ public class Disco implements Serializable{
     @Override
     public String toString() {
         return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + '}';
+    }
+
+    /**
+     * @return the artista
+     */
+    public Artista getArtista() {
+        return artista;
+    }
+
+    /**
+     * @param artista the artista to set
+     */
+    public void setArtista(Artista artista) {
+        this.artista = artista;
+    }
+
+    /**
+     * @return the canciones
+     */
+    public ArrayList<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    /**
+     * @param canciones the canciones to set
+     */
+    public void setCanciones(ArrayList<Cancion> canciones) {
+        this.canciones = canciones;
     }
     
     
