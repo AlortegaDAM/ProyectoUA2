@@ -1,33 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package JDBCControl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author adryc
- */
 public class JDBCConector {
-    private static String dbhost = "jdbc:mysql://localhost:3306/musica";
-    private static String username = "root";
-    private static String password = "";
-    private static Connection conn;
+    
+    Connection conn;
+    final String url="jdbc:mysql://localhost:3306/musica";
+    final String user="root";
+    final String pass="";
+    final String timezone="?useLegacyDatetimeCode=false&serverTimezone=UTC";
 	
-	public static Connection createNewDBconnection() {
-		try  {	
-			conn = DriverManager.getConnection(
-					dbhost, username, password);	
-		} catch (SQLException e) {
-			System.out.println("Cannot create database connection");
-			e.printStackTrace();
-		} finally {
-			return conn;	
-		}		
-	}
+	public Connection createNewDBconnection(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url+timezone, user, pass);
+        }catch(ClassNotFoundException | SQLException ex){
+            Logger.getLogger("DBcon").log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        }
+    return conn;
+    }   
 }
