@@ -5,13 +5,14 @@
  */
 package com.mycompany.proyectoua2.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  *
  * @author adryc
  */
-public class Comentario {
+public class Comentario implements Serializable{
     private int id;
     private Usuario autor;
     private Lista lista;

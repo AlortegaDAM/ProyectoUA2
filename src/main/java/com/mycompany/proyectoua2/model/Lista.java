@@ -5,20 +5,21 @@
  */
 package com.mycompany.proyectoua2.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author adryc
  */
-public class Lista {
+public class Lista implements Serializable {
     private int id;
     private String nombre;
     private String descripcion;
     private Usuario creador;
     private ArrayList<Cancion> canciones;
 
-    public Lista() {
+    public Lista(){
     }
 
     public Lista(int id, String nombre, String descripcion, Usuario creador, ArrayList<Cancion> canciones) {

@@ -5,11 +5,13 @@
  */
 package com.mycompany.proyectoua2.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author adryc
  */
-public class Usuario {
+public class Usuario implements Serializable{
     private int id;
     private String correo;
     private String nombre;
