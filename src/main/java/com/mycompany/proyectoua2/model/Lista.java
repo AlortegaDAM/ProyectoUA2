@@ -13,15 +13,25 @@ import java.util.ArrayList;
  * @author adryc
  */
 public class Lista implements Serializable {
-    private int id;
-    private String nombre;
-    private String descripcion;
-    private Usuario creador;
-    private ArrayList<Cancion> canciones;
+    protected int id;
+    protected String nombre;
+    protected String descripcion;
+    protected Usuario creador;
+    protected int id_usuario;
+    protected ArrayList<Cancion> canciones;
 
     public Lista(){
     }
 
+    public Lista(int id, String nombre, String descripcion,int id_usuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;       
+        this.id_usuario = id_usuario;
+    }
+
+    
+    
     public Lista(int id, String nombre, String descripcion, Usuario creador, ArrayList<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
@@ -36,6 +46,15 @@ public class Lista implements Serializable {
     public int getId() {
         return id;
     }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
 
     /**
      * @param id the id to set
