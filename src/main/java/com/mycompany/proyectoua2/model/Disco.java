@@ -7,6 +7,7 @@ package com.mycompany.proyectoua2.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -17,7 +18,22 @@ public class Disco implements Serializable{
     private String nombre;
     private String foto;
     private Artista artista;
+    private Date fecha;
     private ArrayList<Cancion> canciones;
+
+    public Disco() {
+    }
+
+    public Disco(int id, String nombre, String foto, Artista artista, Date fecha) {
+        this.id = id;
+        this.nombre = nombre;
+        this.foto = foto;
+        this.artista = artista;
+        this.fecha = fecha;
+        this.canciones = new ArrayList<>();
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -61,6 +77,16 @@ public class Disco implements Serializable{
     public void setArtista(Artista artista) {
         this.artista = artista;
     }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 
     /**
      * @return the canciones

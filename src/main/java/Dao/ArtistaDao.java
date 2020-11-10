@@ -8,7 +8,7 @@ package Dao;
 
 
 import com.mycompany.proyectoua2.model.Artista;
-import JDBCControl.JDBCConector;
+import Control.JDBCConector;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

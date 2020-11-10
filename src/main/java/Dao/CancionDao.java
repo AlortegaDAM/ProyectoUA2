@@ -9,7 +9,7 @@ package Dao;
  *
  * @author Carlos
  */
-import JDBCControl.JDBCConector;
+import Control.JDBCConector;
 import com.mycompany.proyectoua2.model.Cancion;
 import java.sql.Connection;
 import java.sql.ResultSet;
