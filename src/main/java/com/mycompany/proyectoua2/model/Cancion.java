@@ -12,20 +12,33 @@ import java.io.Serializable;
  * @author Vinil
  */
 public class Cancion implements Serializable{
-    private String nombre;
-    private int id;
-    private int duracion;
-    private Disco disco;
-
+    public int id;
+    public String nombre;  
+    public int duracion;
+    public Disco disco;
+    public int id_genero;
+    public int id_disco;
+    
     public Cancion() {
     }
 
-    public Cancion(String nombre, int id, int duracion, Disco disco) {
-        this.nombre = nombre;
+    public Cancion(int id, String nombre, int duracion, int id_genero, int id_disco) {
         this.id = id;
+        this.nombre = nombre;
+        this.duracion = duracion;
+        this.id_genero = id_genero;
+        this.id_disco = id_disco;
+    }
+    
+
+    public Cancion(String nombre, int id, int duracion, Disco disco) {
+        this.id = id;
+        this.nombre = nombre;
+        
         this.duracion = duracion;
         this.disco = disco;
     }
+    
 
     /**
      * @return the nombre
@@ -81,6 +94,22 @@ public class Cancion implements Serializable{
      */
     public void setDisco(Disco disco) {
         this.disco = disco;
+    }
+
+    public int getId_genero() {
+        return id_genero;
+    }
+
+    public void setId_genero(int id_genero) {
+        this.id_genero = id_genero;
+    }
+
+    public int getId_disco() {
+        return id_disco;
+    }
+
+    public void setId_disco(int id_disco) {
+        this.id_disco = id_disco;
     }
     
     

@@ -1,8 +1,8 @@
 
 package view;
 
-import utils.UIUtilities;
-import static utils.UIUtilities.espera;
+import Util.UIUtilities;
+import static Util.UIUtilities.espera;
 
 
 /**

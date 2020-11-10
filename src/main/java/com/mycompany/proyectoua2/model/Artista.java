@@ -6,20 +6,46 @@
 package com.mycompany.proyectoua2.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
  * @author Vinil
  */
 public class Artista implements Serializable{
-    private int id;
-    private String nombre;
-    private String nacionalidad;
-    private String foto;
+   public int id;
+    public String nombre;
+    public String nacionalidad;
+    public String foto;
+    private ArrayList<Disco> discos;
 
     public int getId() {
         return id;
     }
+
+    public Artista() {
+    }
+    public Artista(int id, String nombre, String nacionalidad, String foto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nacionalidad = nacionalidad;
+        this.foto = foto;
+       
+    }
+
+    public Artista(int id, String nombre, String nacionalidad, String foto, ArrayList<Disco> discos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nacionalidad = nacionalidad;
+        this.foto = foto;
+        this.discos = discos;
+    }
+     public Artista(int id) {
+        this.id = id;
+       
+    }
+    
+    
 
     public void setId(int id) {
         this.id = id;
@@ -56,3 +82,4 @@ public class Artista implements Serializable{
     
     
 }
+

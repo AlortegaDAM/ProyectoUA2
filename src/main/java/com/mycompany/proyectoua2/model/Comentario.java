@@ -13,10 +13,13 @@ import java.sql.Timestamp;
  * @author adryc
  */
 public class Comentario implements Serializable{
-    private int id;
-    private Usuario autor;
-    private Lista lista;
-    private Timestamp momento;
+    public int id;
+    public Usuario autor;
+    public String mensaje;
+    public Lista lista;
+    public Timestamp momento;
+    public int ID_Usuario;
+    public int ID_Lista;
 
     public Comentario() {
     }
@@ -27,6 +30,44 @@ public class Comentario implements Serializable{
         this.lista = lista;
         this.momento = momento;
     }
+
+    public Comentario(int id, String mensaje, int ID_Usuario, int ID_Lista) {
+        this.id = id;
+        this.mensaje=mensaje;
+        this.ID_Usuario = ID_Usuario;
+        this.ID_Lista = ID_Lista;
+    }
+
+    public Comentario(int id) {
+        this.id = id;
+
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public int getID_Usuario() {
+        return ID_Usuario;
+    }
+
+    public void setID_Usuario(int ID_Usuario) {
+        this.ID_Usuario = ID_Usuario;
+    }
+
+    public int getID_Lista() {
+        return ID_Lista;
+    }
+
+    public void setID_Lista(int ID_Lista) {
+        this.ID_Lista = ID_Lista;
+    }
+    
+    
 
     /**
      * @return the id
@@ -83,7 +124,5 @@ public class Comentario implements Serializable{
     public void setMomento(Timestamp momento) {
         this.momento = momento;
     }
-    
-    
-    
+
 }

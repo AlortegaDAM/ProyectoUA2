@@ -1,7 +1,7 @@
 
 package view;
 
-import utils.UIUtilities;
+import Util.UIUtilities;
 import static view.ArtistasView.artistas;
 import static view.CancionesView.canciones;
 import static view.DiscosView.discos;
