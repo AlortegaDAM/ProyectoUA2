@@ -11,13 +11,19 @@ import java.io.Serializable;
  *
  * @author adryc
  */
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
+
     protected int id;
     protected String correo;
     protected String nombre;
     protected String foto;
 
     public Usuario() {
+        this.id = -1;
+        this.correo = "";
+        this.nombre = "";
+        this.foto = "";
+
     }
 
     public Usuario(int id, String correo, String nombre, String foto) {
@@ -87,7 +93,5 @@ public class Usuario implements Serializable{
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-   
-    
+
 }

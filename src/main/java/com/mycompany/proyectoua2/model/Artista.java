@@ -24,6 +24,11 @@ public class Artista implements Serializable{
     }
 
     public Artista() {
+        this.id=-1;
+        this.nombre="";
+        this.nacionalidad="";
+        this.foto="";
+        
     }
     public Artista(int id, String nombre, String nacionalidad, String foto) {
         this.id = id;

@@ -39,6 +39,10 @@ public class Disco implements Serializable {
     }
 
     public Disco() {
+        this.id=-1;
+        this.nombre="";
+        this.foto="";
+        this.id_artista=-1;
     }
     
 

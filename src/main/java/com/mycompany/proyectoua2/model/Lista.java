@@ -21,6 +21,10 @@ public class Lista implements Serializable {
     protected ArrayList<Cancion> canciones;
 
     public Lista(){
+        this.id=-1;
+        this.nombre="";
+        this.descripcion="";
+        this.id_usuario=-1;
     }
 
     public Lista(int id, String nombre, String descripcion,int id_usuario) {

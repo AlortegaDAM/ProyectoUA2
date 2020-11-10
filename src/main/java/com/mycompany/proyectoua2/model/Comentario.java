@@ -22,6 +22,10 @@ public class Comentario implements Serializable{
     public int ID_Lista;
 
     public Comentario() {
+        this.id=-1;
+        this.mensaje="";
+        this.ID_Usuario=-1;
+        this.ID_Lista=-1;
     }
 
     public Comentario(int id, Usuario autor, Lista lista, Timestamp momento) {

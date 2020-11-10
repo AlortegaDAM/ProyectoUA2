@@ -20,6 +20,11 @@ public class Cancion implements Serializable{
     public int id_disco;
     
     public Cancion() {
+        this.id=-1;
+        this.nombre="";
+        this.id_disco=-1;
+        this.id_genero=-1;
+        
     }
 
     public Cancion(int id, String nombre, int duracion, int id_genero, int id_disco) {
