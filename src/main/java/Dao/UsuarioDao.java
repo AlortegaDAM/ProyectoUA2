@@ -5,7 +5,7 @@
  */
 package Dao;
 
-import com.mycompany.proyectoua2.model.Artista;
+import com.mycompany.proyectoua2.model.Usuario;
 import Control.JDBCConector;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,15 +17,15 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implements Dao {
+public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implements Dao {
 
     enum queries {
-        INSERT("INSERT INTO artista (ID,Nombre,Nacionalidad,Foto) VALUES (?,?,?,?)"),
-        ALL("SELECT * FROM artista"),
-        GETBYID("SELECT * FROM artista WHERE ID=?"),
-        FINDBYNAME("SELECT * FROM artista WHERE Nombre LIKE ?"),
-        UPDATE("UPDATE artista SET Nombre = ?, Nacionalidad = ?, Foto = ? WHERE ID = ?"),
-        REMOVE("DELETE FROM artista WHERE ID=?");
+        INSERT("INSERT INTO usuario (ID,Correo,Nombre,Foto) VALUES (?,?,?,?)"),
+        ALL("SELECT * FROM usuario"),
+        GETBYID("SELECT * FROM usuario WHERE ID=?"),
+        FINDBYNAME("SELECT * FROM usuario WHERE Nombre LIKE ?"),
+        UPDATE("UPDATE usuario SET Correo = ?, Nombre = ?, Foto = ? WHERE ID = ?"),
+        REMOVE("DELETE FROM usuario WHERE ID=?");
         private String q;
 
         queries(String q) {
@@ -41,13 +41,13 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     private boolean persist;
     JDBCConector conex = new JDBCConector();
 
-    public ArtistaDao(int id, String nombre, String nacionalidad, String foto) {
-        super(id, nombre, nacionalidad, foto);
+    public UsuarioDao(int id, String nombre, String correo, String foto) {
+        super(id, nombre, correo, foto);
         con = conex.createNewDBconnection();
         persist = false;
     }
 
-    public ArtistaDao() {
+    public UsuarioDao() {
         super();
         con = conex.createNewDBconnection();
 
@@ -55,11 +55,11 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     }
 
     //DAO
-    public ArtistaDao(Artista a) {
-        this(a.getId(), a.getNombre(), a.getNacionalidad(), a.getFoto());
+    public UsuarioDao(Usuario a) {
+        this(a.getId(), a.getNombre(), a.getCorreo(), a.getFoto());
     }
 
-    public ArtistaDao(int i) {
+    public UsuarioDao(int i) {
         this();
         List<Object> params = new ArrayList<>();
         params.add(i);
@@ -69,16 +69,16 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             if (rs != null) {
 
                 while (rs.next()) {
-                    Artista c = instanceBuilder(rs);
+                    Usuario c = instanceBuilder(rs);
                     this.id = c.getId();
                     this.nombre = c.getNombre();
-                    this.nacionalidad = c.getNacionalidad();
+                    this.correo = c.getCorreo();
                     this.foto = c.getFoto();
                 }
 
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar usuario");
         }
     }
 
@@ -99,8 +99,8 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     }
 
     @Override
-    public void setNacionalidad(String nacionalidad) {
-        super.setNacionalidad(nacionalidad);
+    public void setCorreo(String correo) {
+        super.setCorreo(correo);
         if (persist) {
             save();
         }
@@ -126,8 +126,8 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     public void save() {
         queries q;
         List<Object> params = new ArrayList<>();
+        params.add(this.getCorreo());
         params.add(this.getNombre());
-        params.add(this.getNacionalidad());
         params.add(this.getFoto());
 
         if (this.id == -1) {
@@ -142,13 +142,13 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             con.setAutoCommit(false);
 
             int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERT ? true : false));
-            if (q == ArtistaDao.queries.INSERT) {
+            if (q == UsuarioDao.queries.INSERT) {
                 this.id = rs;
             }
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException ex) {
-            System.out.println("Error al guardar Artista");
+            System.out.println("Error al guardar usuario");
         }
 
     }
@@ -166,25 +166,25 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
                 con.setAutoCommit(true);
 
             } catch (SQLException ex) {
-                System.out.println("Error al borrar Artista");
+                System.out.println("Error al borrar Usuario");
             }
         }
     }
-    // UTILS for CONTACT DAO
 
-    public static Artista instanceBuilder(ResultSet rs) {
+    // UTILS for CONTACT DAO
+    public static Usuario instanceBuilder(ResultSet rs) {
         //ojo rs.getMetaData()
-        Artista c = new Artista();
+        Usuario c = new Usuario();
         if (rs != null) {
             try {
                 c.setId(rs.getInt("ID"));
+                c.setCorreo(rs.getString("Correo"));
                 c.setNombre(rs.getString("Nombre"));
-                c.setNacionalidad(rs.getString("Nacionalidad"));
                 c.setFoto(rs.getString("Foto"));
 
                 //falta lazy contacts
             } catch (SQLException ex) {
-                System.out.println("Error SQL al crear un Artista");
+                System.out.println("Error SQL al crear un usuario");
 
             }
 
@@ -192,41 +192,41 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
         return c;
     }
 
-    public static List<Artista> getAll(Connection con) {
-        List<Artista> result = new ArrayList<>();
+    public static List<Usuario> getAll(Connection con) {
+        List<Usuario> result = new ArrayList<>();
         try {
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queries.ALL.getQ(), null);
             if (rs != null) {
                 while (rs.next()) {
-                    Artista n = ArtistaDao.instanceBuilder(rs);
+                    Usuario n = UsuarioDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar usuario");
         }
         return result;
     }
 
-    public static List<Artista> getByName(Connection con, String name) {
-        List<Artista> result = new ArrayList<>();
+    public static List<Usuario> getByName(Connection con, String name) {
+        List<Usuario> result = new ArrayList<>();
         try {
 
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queries.FINDBYNAME.getQ(), name + "%");
             if (rs != null) {
                 while (rs.next()) {
-                    Artista n = ArtistaDao.instanceBuilder(rs);
+                    Usuario n = UsuarioDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar usuario");
         }
         return result;
     }
 
-    public static List<Artista> getById(Connection con, List<Integer> ids) {
-        List<Artista> result = new ArrayList<>();
+    public static List<Usuario> getById(Connection con, List<Integer> ids) {
+        List<Usuario> result = new ArrayList<>();
         try {
             List<String> newList = new ArrayList<String>(ids.size());
             for (Integer myInt : ids) {
@@ -237,12 +237,12 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
             if (rs != null) {
                 while (rs.next()) {
-                    Artista n = ArtistaDao.instanceBuilder(rs);
+                    Usuario n = UsuarioDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar usuario");
         }
         return result;
     }

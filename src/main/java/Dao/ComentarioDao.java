@@ -23,12 +23,12 @@ import java.util.List;
  */
 public class ComentarioDao extends Comentario implements Dao{
      enum queries {
-        INSERT("INSERT INTO comentario (ID,Nombre,Duracion,ID_Genero,ID_Disco) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO comentario (ID,Mensaje,ID_Usuario,ID_Lista) VALUES (?,?,?,?)"),
         ALL("SELECT * FROM comentario"),
-        GETBYID("SELECT * FROM comentario WHERE id=?"),
-        FINDBYNAME("SELECT * FROM comentario WHERE nombre LIKE ?"),
-        UPDATE("UPDATE comentario SET Nombre = ?, Duracion = ? WHERE id = ?"),
-        REMOVE("DELETE FROM comentario WHERE id=?");
+        GETBYID("SELECT * FROM comentario WHERE ID=?"),
+        FINDBYNAME("SELECT * FROM comentario WHERE Mensaje LIKE ?"),
+        UPDATE("UPDATE comentario SET Mensaje = ? WHERE ID = ?"),
+        REMOVE("DELETE FROM comentario WHERE ID=?");
         private String q;
 
         queries(String q) {

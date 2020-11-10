@@ -5,11 +5,14 @@
  */
 package Dao;
 
-import com.mycompany.proyectoua2.model.Artista;
+
+
 import Control.JDBCConector;
+import com.mycompany.proyectoua2.model.Disco;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +20,15 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implements Dao {
+public class DiscoDao extends Disco implements Dao{
 
     enum queries {
-        INSERT("INSERT INTO artista (ID,Nombre,Nacionalidad,Foto) VALUES (?,?,?,?)"),
-        ALL("SELECT * FROM artista"),
-        GETBYID("SELECT * FROM artista WHERE ID=?"),
-        FINDBYNAME("SELECT * FROM artista WHERE Nombre LIKE ?"),
-        UPDATE("UPDATE artista SET Nombre = ?, Nacionalidad = ?, Foto = ? WHERE ID = ?"),
-        REMOVE("DELETE FROM artista WHERE ID=?");
+        INSERT("INSERT INTO disco (ID,Nombre,Foto,Fecha_publicacion,ID_Artista) VALUES (?,?,?,?,?)"),
+        ALL("SELECT * FROM disco"),
+        GETBYID("SELECT * FROM disco WHERE ID=?"),
+        FINDBYNAME("SELECT * FROM disco WHERE Nombre LIKE ?"),
+        UPDATE("UPDATE disco SET Nombre = ?, Foto = ?, Fecha_publicacion= ? WHERE id = ?"),
+        REMOVE("DELETE FROM disco WHERE ID=?");
         private String q;
 
         queries(String q) {
@@ -41,13 +44,13 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     private boolean persist;
     JDBCConector conex = new JDBCConector();
 
-    public ArtistaDao(int id, String nombre, String nacionalidad, String foto) {
-        super(id, nombre, nacionalidad, foto);
+    public DiscoDao(int id, String nombre, String foto, int id_artista, LocalDate fecha_produccion) {
+        super(id,nombre,foto,id_artista,fecha_produccion);
         con = conex.createNewDBconnection();
         persist = false;
     }
 
-    public ArtistaDao() {
+    public DiscoDao() {
         super();
         con = conex.createNewDBconnection();
 
@@ -55,11 +58,11 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     }
 
     //DAO
-    public ArtistaDao(Artista a) {
-        this(a.getId(), a.getNombre(), a.getNacionalidad(), a.getFoto());
+    public DiscoDao(Disco a) {
+        this(a.getId(), a.getNombre(), a.getFoto(), a.getId_artista(), a.getFecha_produccion());
     }
 
-    public ArtistaDao(int i) {
+    public DiscoDao(int i) {
         this();
         List<Object> params = new ArrayList<>();
         params.add(i);
@@ -69,16 +72,17 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             if (rs != null) {
 
                 while (rs.next()) {
-                    Artista c = instanceBuilder(rs);
+                    Disco c = instanceBuilder(rs);
                     this.id = c.getId();
                     this.nombre = c.getNombre();
-                    this.nacionalidad = c.getNacionalidad();
+                    this.fecha_produccion = c.getFecha_produccion();
                     this.foto = c.getFoto();
+                    this.id_artista = c.getId_artista();
                 }
 
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar Disco");
         }
     }
 
@@ -99,8 +103,8 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     }
 
     @Override
-    public void setNacionalidad(String nacionalidad) {
-        super.setNacionalidad(nacionalidad);
+    public void setFecha_produccion(LocalDate fecha_produccion) {
+        super.setFecha_produccion(fecha_produccion);
         if (persist) {
             save();
         }
@@ -127,7 +131,8 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
         queries q;
         List<Object> params = new ArrayList<>();
         params.add(this.getNombre());
-        params.add(this.getNacionalidad());
+        params.add(this.getFecha_produccion());
+        params.add(this.getId_artista());
         params.add(this.getFoto());
 
         if (this.id == -1) {
@@ -142,13 +147,13 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             con.setAutoCommit(false);
 
             int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERT ? true : false));
-            if (q == ArtistaDao.queries.INSERT) {
+            if (q == DiscoDao.queries.INSERT) {
                 this.id = rs;
             }
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException ex) {
-            System.out.println("Error al guardar Artista");
+            System.out.println("Error al guardar Disco");
         }
 
     }
@@ -166,25 +171,25 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
                 con.setAutoCommit(true);
 
             } catch (SQLException ex) {
-                System.out.println("Error al borrar Artista");
+                System.out.println("Error al borrar Disco");
             }
         }
     }
-    // UTILS for CONTACT DAO
 
-    public static Artista instanceBuilder(ResultSet rs) {
+    // UTILS for CONTACT DAO
+    public static Disco instanceBuilder(ResultSet rs) {
         //ojo rs.getMetaData()
-        Artista c = new Artista();
+        Disco c = new Disco();
         if (rs != null) {
             try {
                 c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
-                c.setNacionalidad(rs.getString("Nacionalidad"));
-                c.setFoto(rs.getString("Foto"));
+                c.setFecha_produccion( rs.getDate("Fecha_publicacion").toLocalDate());
+                c.setId_artista(rs.getInt("ID_Artista"));
 
                 //falta lazy contacts
             } catch (SQLException ex) {
-                System.out.println("Error SQL al crear un Artista");
+                System.out.println("Error SQL al crear un Disco");
 
             }
 
@@ -192,41 +197,41 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
         return c;
     }
 
-    public static List<Artista> getAll(Connection con) {
-        List<Artista> result = new ArrayList<>();
+    public static List<Disco> getAll(Connection con) {
+        List<Disco> result = new ArrayList<>();
         try {
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queries.ALL.getQ(), null);
             if (rs != null) {
                 while (rs.next()) {
-                    Artista n = ArtistaDao.instanceBuilder(rs);
+                    Disco n = DiscoDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar Disco");
         }
         return result;
     }
 
-    public static List<Artista> getByName(Connection con, String name) {
-        List<Artista> result = new ArrayList<>();
+    public static List<Disco> getByName(Connection con, String name) {
+        List<Disco> result = new ArrayList<>();
         try {
 
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queries.FINDBYNAME.getQ(), name + "%");
             if (rs != null) {
                 while (rs.next()) {
-                    Artista n = ArtistaDao.instanceBuilder(rs);
+                    Disco n = DiscoDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar Disco");
         }
         return result;
     }
 
-    public static List<Artista> getById(Connection con, List<Integer> ids) {
-        List<Artista> result = new ArrayList<>();
+    public static List<Disco> getById(Connection con, List<Integer> ids) {
+        List<Disco> result = new ArrayList<>();
         try {
             List<String> newList = new ArrayList<String>(ids.size());
             for (Integer myInt : ids) {
@@ -237,12 +242,12 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
             if (rs != null) {
                 while (rs.next()) {
-                    Artista n = ArtistaDao.instanceBuilder(rs);
+                    Disco n = DiscoDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Artista");
+            System.out.println("Error al cargar Disco");
         }
         return result;
     }

@@ -5,39 +5,59 @@
  */
 package com.mycompany.proyectoua2.model;
 
+
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
  * @author Carlos
  */
-public class Disco implements Serializable{
-    private int id;
-    private String nombre;
-    private String foto;
-    private Artista artista;
-    private Date fecha;
-    private ArrayList<Cancion> canciones;
+public class Disco implements Serializable {
 
-    public Disco() {
-    }
-
-    public Disco(int id, String nombre, String foto, Artista artista, Date fecha) {
-        this.id = id;
-        this.nombre = nombre;
-        this.foto = foto;
-        this.artista = artista;
-        this.fecha = fecha;
-        this.canciones = new ArrayList<>();
-    }
-    
-    
+    protected int id;
+    protected String nombre;
+    protected String foto;
+    protected Artista artista;
+    protected int id_artista;
+    protected LocalDate fecha_produccion;
+    protected ArrayList<Cancion> canciones;
 
     public int getId() {
         return id;
     }
+
+    public Disco(int id, String nombre, String foto, int id_artista, LocalDate fecha_produccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.foto = foto;
+        this.id_artista = id_artista;
+        this.fecha_produccion = fecha_produccion;
+
+    }
+
+    public Disco() {
+    }
+    
+
+    public int getId_artista() {
+        return id_artista;
+    }
+
+    public void setId_artista(int id_artista) {
+        this.id_artista = id_artista;
+    }
+
+    public LocalDate getFecha_produccion() {
+        return fecha_produccion;
+    }
+
+    public void setFecha_produccion(LocalDate fecha_produccion) {
+        this.fecha_produccion = fecha_produccion;
+    }
+    
 
     public void setId(int id) {
         this.id = id;
@@ -78,16 +98,6 @@ public class Disco implements Serializable{
         this.artista = artista;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-    
-    
-
     /**
      * @return the canciones
      */
@@ -101,7 +111,5 @@ public class Disco implements Serializable{
     public void setCanciones(ArrayList<Cancion> canciones) {
         this.canciones = canciones;
     }
-    
-    
-   
+
 }

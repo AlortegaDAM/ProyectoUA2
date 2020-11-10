@@ -24,12 +24,12 @@ import java.util.List;
 public class CancionDao extends Cancion implements Dao{
     
     enum queries {
-        INSERT("INSERT INTO cancion (ID,Nombre,Duracion,ID_Genero,ID_Disco) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO cancion (ID,Nombre,Duracion,ID_Genero,ID_Disco) VALUES (?,?,?,?,5)"),
         ALL("SELECT * FROM cancion"),
-        GETBYID("SELECT * FROM cancion WHERE id=?"),
-        FINDBYNAME("SELECT * FROM cancion WHERE nombre LIKE ?"),
-        UPDATE("UPDATE cancion SET Nombre = ?, Duracion = ? WHERE id = ?"),
-        REMOVE("DELETE FROM cancion WHERE id=?");
+        GETBYID("SELECT * FROM cancion WHERE ID=?"),
+        FINDBYNAME("SELECT * FROM cancion WHERE Nombre LIKE ?"),
+        UPDATE("UPDATE cancion SET Nombre = ?, Duracion = ? WHERE ID = ?"),
+        REMOVE("DELETE FROM cancion WHERE ID=?");
         private String q;
 
         queries(String q) {
@@ -173,17 +173,18 @@ public class CancionDao extends Cancion implements Dao{
         }
     }
 
-    // UTILS for CONTACT DAO
+ // UTILS for CONTACT DAO
     public static Cancion instanceBuilder(ResultSet rs) {
         //ojo rs.getMetaData()
         Cancion c = new Cancion();
         if (rs != null) {
             try {
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
                 c.setDuracion(rs.getInt("Duracion"));
-                c.setId_disco(rs.getInt("ID_Disco"));
                 c.setId_genero(rs.getInt("ID_Genero"));
+                c.setId_disco(rs.getInt("ID_Disco"));
+                
                
                 //falta lazy contacts
             } catch (SQLException ex) {

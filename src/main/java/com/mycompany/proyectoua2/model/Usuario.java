@@ -12,10 +12,10 @@ import java.io.Serializable;
  * @author adryc
  */
 public class Usuario implements Serializable{
-    private int id;
-    private String correo;
-    private String nombre;
-    private String foto;
+    protected int id;
+    protected String correo;
+    protected String nombre;
+    protected String foto;
 
     public Usuario() {
     }
