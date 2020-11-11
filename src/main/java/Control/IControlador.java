@@ -23,49 +23,48 @@ public interface IControlador {
     List<Artista> mostrarArtistas();
     List<Artista> buscarArtistaNombre(String nombre);
     Artista buscarArtistaID(int id);
-    boolean crearArtista(Artista a);
-    boolean actualizarArtista(Artista a);
-    boolean borrarArtista(int id);
+    void crearArtista(Artista a);
+    void actualizarArtista(Artista a);
+    void borrarArtista(int id);
     
     //Controlador para los discos
     List<Disco> mostrarDiscos();
     List<Disco> mostrarDiscosNombre(String nombre);
     Disco buscarDiscoID(int id);
-    boolean crearDisco(Disco d);
-    boolean actualizarDisco(Disco d);
-    boolean borrarDisco(int id);
+    void crearDisco(Disco d);
+    void actualizarDisco(Disco d);
+    void borrarDisco(int id);
     void insertarCanciones(ArrayList<Cancion> canciones, Disco d);
     
     //Controlador para las canciones
     List<Cancion> mostrarCanciones();
     List<Cancion> mostrarCancionesNombre(String nombre);
     Cancion buscarCancionID(int id);
-    boolean crearCancion(Cancion c);
-    boolean actualizarCancion(Cancion c);
-    boolean borrarCancion(int id);
-    boolean addCancionDisco(Cancion c, Disco d);
+    void crearCancion(Cancion c);
+    void actualizarCancion(Cancion c);
+    void borrarCancion(int id);
     
     //Controlador para los usuarios
     List<Usuario> mostrarUsuarios();
     List<Usuario> mostrarUsuariosNombre(String nombre);
     Usuario buscarUsuarioID(int id);
-    boolean crearUsuario(Usuario u);
-    boolean actualizarUsuario(Usuario u);
-    boolean borrarUsuario(Usuario u);
+    void crearUsuario(Usuario u);
+    void actualizarUsuario(Usuario u);
+    void borrarUsuario(int id);
     
     //Controlador para las listas
     List<Lista> mostrarListas();
     List<Lista> mostrarListasNombre(String nombre);
     Lista buscarListaID(int id);
-    boolean crearLista(Lista l);
-    boolean actualizarLista(Lista l);
-    boolean borrarLista(Lista l);
+    void crearLista(Lista l);
+    void actualizarLista(Lista l);
+    void borrarLista(int id);
     
     //Controlador para los comentarios
     List<Comentario> mostrarComentarios();
     List<Comentario> mostrarComentariosNombre(String nombre);
     Comentario buscarComentarioID(int id);
-    boolean crearComentario(Comentario c);
-    boolean actualizarComentario(Comentario c);
-    boolean borrarComentario(Comentario c);
+    void crearComentario(Comentario c);
+    void actualizarComentario(Comentario c);
+    void borrarComentario(int id);
 }

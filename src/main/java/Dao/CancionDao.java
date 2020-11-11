@@ -29,6 +29,7 @@ public class CancionDao extends Cancion implements Dao{
         GETBYID("SELECT * FROM cancion WHERE ID=?"),
         FINDBYNAME("SELECT * FROM cancion WHERE Nombre LIKE ?"),
         UPDATE("UPDATE cancion SET Nombre = ?, Duracion = ? WHERE ID = ?"),
+        UPDATEARTISTID("UPDATE cancion SET Artista_ID = ?, ID = ?"),
         REMOVE("DELETE FROM cancion WHERE ID=?");
         private String q;
 

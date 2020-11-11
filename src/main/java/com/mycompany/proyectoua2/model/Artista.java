@@ -30,8 +30,8 @@ public class Artista implements Serializable{
         this.foto="";
         
     }
-    public Artista(int id, String nombre, String nacionalidad, String foto) {
-        this.id = id;
+    public Artista(String nombre, String nacionalidad, String foto) {
+        this.id = -1;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.foto = foto;

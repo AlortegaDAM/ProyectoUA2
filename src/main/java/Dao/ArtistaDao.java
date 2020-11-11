@@ -41,8 +41,8 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
     private boolean persist;
     JDBCConector conex = new JDBCConector();
 
-    public ArtistaDao(int id, String nombre, String nacionalidad, String foto) {
-        super(id, nombre, nacionalidad, foto);
+    public ArtistaDao(String nombre, String nacionalidad, String foto) {
+        super(nombre, nacionalidad, foto);
         con = conex.createNewDBconnection();
         persist = false;
     }
@@ -56,7 +56,7 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
 
     //DAO
     public ArtistaDao(Artista a) {
-        this(a.getId(), a.getNombre(), a.getNacionalidad(), a.getFoto());
+        this(a.getNombre(), a.getNacionalidad(), a.getFoto());
     }
 
     public ArtistaDao(int i) {
