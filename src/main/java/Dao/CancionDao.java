@@ -24,7 +24,7 @@ import java.util.List;
 public class CancionDao extends Cancion implements Dao{
     
     enum queries {
-        INSERT("INSERT INTO cancion (ID,Nombre,Duracion,ID_Genero,ID_Disco) VALUES (?,?,?,?,5)"),
+        INSERT("INSERT INTO cancion (ID,Nombre,Duracion,ID_Disco) VALUES (?,?,?,?)"),
         ALL("SELECT * FROM cancion"),
         GETBYID("SELECT * FROM cancion WHERE ID=?"),
         FINDBYNAME("SELECT * FROM cancion WHERE Nombre LIKE ?"),
@@ -46,8 +46,8 @@ public class CancionDao extends Cancion implements Dao{
     Connection con;
     private boolean persist;
 
-    public CancionDao(int id, String nombre, int duracion, int ID_Genero, int ID_Disco) {
-        super(id, nombre, duracion, ID_Genero, ID_Disco);
+    public CancionDao(int id, String nombre, int duracion, int ID_Disco) {
+        super(id, nombre, duracion, ID_Disco);
         
         con = conex.createNewDBconnection();
     }
@@ -60,7 +60,7 @@ public class CancionDao extends Cancion implements Dao{
 
     //DAO
     public CancionDao(Cancion a) {
-        this(a.getId(), a.getNombre(), a.getDuracion(), a.getId_disco(),a.getId_genero());
+        this(a.getId(), a.getNombre(), a.getDuracion(), a.getId_disco());
     }
 
     public CancionDao(int i) {
@@ -77,7 +77,6 @@ public class CancionDao extends Cancion implements Dao{
                     this.id = c.getId();
                     this.nombre = c.getNombre();
                     this.id_disco = c.getId_disco();
-                    this.id_genero = c.getId_genero();
                 }
 
             }
@@ -86,10 +85,12 @@ public class CancionDao extends Cancion implements Dao{
         }
     }
 
+    @Override
     public void persist() {
         this.persist = true;
     }
 
+    @Override
     public void detach() {
         this.persist = false;
     }
@@ -130,7 +131,6 @@ public class CancionDao extends Cancion implements Dao{
         params.add(this.getNombre());
         params.add(this.getDuracion());
         params.add(this.getId_disco());
-        params.add(this.getId_genero());
         
 
         if (this.id == -1) {
@@ -156,6 +156,7 @@ public class CancionDao extends Cancion implements Dao{
 
     }
 
+    @Override
     public void remove() {
         if (this.id != -1) {
             try {
@@ -183,7 +184,6 @@ public class CancionDao extends Cancion implements Dao{
                 c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
                 c.setDuracion(rs.getInt("Duracion"));
-                c.setId_genero(rs.getInt("ID_Genero"));
                 c.setId_disco(rs.getInt("ID_Disco"));
                 
                

@@ -82,10 +82,12 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
         }
     }
 
+    @Override
     public void persist() {
         this.persist = true;
     }
 
+    @Override
     public void detach() {
         this.persist = false;
     }
@@ -123,6 +125,7 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
         //primary key cannot be changed
     }
 
+    @Override
     public void save() {
         queries q;
         List<Object> params = new ArrayList<>();
@@ -141,7 +144,7 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             //Comienza transacción
             con.setAutoCommit(false);
 
-            int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERT ? true : false));
+            int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERT));
             if (q == ArtistaDao.queries.INSERT) {
                 this.id = rs;
             }
@@ -153,6 +156,7 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
 
     }
 
+    @Override
     public void remove() {
         if (this.id != -1) {
             try {

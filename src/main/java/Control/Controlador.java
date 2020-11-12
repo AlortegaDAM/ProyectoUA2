@@ -60,8 +60,9 @@ public class Controlador implements IControlador{
 
     @Override
     public void crearArtista(Artista a) {
-        ArtistaDao dao = new ArtistaDao(a);
-        dao.save();
+        ArtistaDao nuevoDao=new ArtistaDao(a);
+        nuevoDao.save();
+        a.setId(nuevoDao.getId());
     }
 
     @Override

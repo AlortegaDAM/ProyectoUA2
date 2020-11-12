@@ -16,22 +16,19 @@ public class Cancion implements Serializable{
     public String nombre;  
     public int duracion;
     public Disco disco;
-    public int id_genero;
     public int id_disco;
     
     public Cancion() {
         this.id=-1;
         this.nombre="";
         this.id_disco=-1;
-        this.id_genero=-1;
         
     }
 
-    public Cancion(int id, String nombre, int duracion, int id_genero, int id_disco) {
+    public Cancion(int id, String nombre, int duracion, int id_disco) {
         this.id = id;
         this.nombre = nombre;
         this.duracion = duracion;
-        this.id_genero = id_genero;
         this.id_disco = id_disco;
     }
     
@@ -101,13 +98,8 @@ public class Cancion implements Serializable{
         this.disco = disco;
     }
 
-    public int getId_genero() {
-        return id_genero;
-    }
 
-    public void setId_genero(int id_genero) {
-        this.id_genero = id_genero;
-    }
+    
 
     public int getId_disco() {
         return id_disco;
@@ -117,5 +109,8 @@ public class Cancion implements Serializable{
         this.id_disco = id_disco;
     }
     
-    
+    @Override
+    public String toString(){
+        return("Nombre: " + this.getNombre()+", duracion: " + this.getDuracion()+", id: ");
+    }
 }
