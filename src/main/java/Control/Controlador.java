@@ -276,8 +276,10 @@ public class Controlador implements IControlador{
     }
 
     @Override
-    public void actualizarLista(Lista l) {
-        ListaDao dao = new ListaDao(l);
+    public void actualizarLista(int id) {
+        ListaDao dao = new ListaDao();
+        Lista l = buscarListaID(id);
+        dao = new ListaDao();
         dao.save();    
     }
 
@@ -341,7 +343,13 @@ public class Controlador implements IControlador{
     public List<Cancion> songsByDisk(int id) {
         List<Cancion> result = new ArrayList<>();
         DiscoDao dao = new DiscoDao();
-        
+        List<Cancion> aux = mostrarCanciones();
+        for(Cancion c : aux){
+            if(c.getId_disco() == id){
+                result.add(c);
+            }
+        }
+        return result;
     }
     
     
