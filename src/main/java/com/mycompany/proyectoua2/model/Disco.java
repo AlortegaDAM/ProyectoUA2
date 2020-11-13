@@ -29,8 +29,8 @@ public class Disco implements Serializable {
         return id;
     }
 
-    public Disco(int id, String nombre, String foto, int id_artista, LocalDate fecha_produccion) {
-        this.id = id;
+    public Disco(String nombre, String foto, LocalDate fecha_produccion, int id_artista) {
+        this.id = -1;
         this.nombre = nombre;
         this.foto = foto;
         this.id_artista = id_artista;
@@ -85,7 +85,7 @@ public class Disco implements Serializable {
 
     @Override
     public String toString() {
-        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + '}';
+        return "Disco{" + "id=" + id + ", nombre=" + nombre + ", foto=" + foto + "}";
     }
 
     /**
@@ -95,9 +95,6 @@ public class Disco implements Serializable {
         return artista;
     }
 
-    /**
-     * @param artista the artista to set
-     */
     public void setArtista(Artista artista) {
         this.artista = artista;
     }

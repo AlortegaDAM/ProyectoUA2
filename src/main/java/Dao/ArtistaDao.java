@@ -20,7 +20,7 @@ import java.util.List;
 public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implements Dao {
 
     enum queries {
-        INSERT("INSERT INTO artista (ID,Nombre,Nacionalidad,Foto) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO artista (Nombre,Nacionalidad,Foto) VALUES (?,?,?)"),
         ALL("SELECT * FROM artista"),
         GETBYID("SELECT * FROM artista WHERE ID=?"),
         FINDBYNAME("SELECT * FROM artista WHERE Nombre LIKE ?"),
@@ -151,6 +151,7 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.out.println("Error al guardar Artista");
         }
 

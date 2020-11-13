@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ComentarioDao extends Comentario implements Dao{
      enum queries {
-        INSERT("INSERT INTO comentario (ID,Mensaje,ID_Usuario,ID_Lista) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO comentario (IMensaje,ID_Usuario,ID_Lista) VALUES (?,?,?)"),
         ALL("SELECT * FROM comentario"),
         GETBYID("SELECT * FROM comentario WHERE ID=?"),
         FINDBYNAME("SELECT * FROM comentario WHERE Mensaje LIKE ?"),
@@ -84,10 +84,12 @@ public class ComentarioDao extends Comentario implements Dao{
         }
     }
 
+     @Override
     public void persist() {
         this.persist = true;
     }
 
+     @Override
     public void detach() {
         this.persist = false;
     }
@@ -116,6 +118,7 @@ public class ComentarioDao extends Comentario implements Dao{
     
     
 
+     @Override
     public void save() {
         ComentarioDao.queries q;
         List<Object> params = new ArrayList<>();
@@ -148,6 +151,7 @@ public class ComentarioDao extends Comentario implements Dao{
 
     }
 
+     @Override
     public void remove() {
         if (this.id != -1) {
             try {

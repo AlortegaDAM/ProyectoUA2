@@ -5,8 +5,6 @@
  */
 package Dao;
 
-
-
 import Control.JDBCConector;
 import com.mycompany.proyectoua2.model.Disco;
 import java.sql.Connection;
@@ -20,10 +18,10 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class DiscoDao extends Disco implements Dao{
+public class DiscoDao extends Disco implements Dao {
 
     enum queries {
-        INSERT("INSERT INTO disco (ID,Nombre,Foto,Fecha_publicacion,ID_Artista) VALUES (?,?,?,?,?)"),
+        INSERT("INSERT INTO disco (Nombre,Foto,Fecha_publicacion,ID_Artista) VALUES (?,?,?,?)"),
         ALL("SELECT * FROM disco"),
         GETBYID("SELECT * FROM disco WHERE ID=?"),
         FINDBYNAME("SELECT * FROM disco WHERE Nombre LIKE ?"),
@@ -44,8 +42,8 @@ public class DiscoDao extends Disco implements Dao{
     private boolean persist;
     JDBCConector conex = new JDBCConector();
 
-    public DiscoDao(int id, String nombre, String foto, int id_artista, LocalDate fecha_produccion) {
-        super(id,nombre,foto,id_artista,fecha_produccion);
+    public DiscoDao(String nombre, String foto, int id_artista, LocalDate fecha_produccion) {
+        super(nombre, foto, fecha_produccion, id_artista);
         con = conex.createNewDBconnection();
         persist = false;
     }
@@ -59,7 +57,7 @@ public class DiscoDao extends Disco implements Dao{
 
     //DAO
     public DiscoDao(Disco a) {
-        this(a.getId(), a.getNombre(), a.getFoto(), a.getId_artista(), a.getFecha_produccion());
+        this(a.getNombre(), a.getFoto(), a.getId_artista(), a.getFecha_produccion());
     }
 
     public DiscoDao(int i) {
@@ -86,10 +84,12 @@ public class DiscoDao extends Disco implements Dao{
         }
     }
 
+    @Override
     public void persist() {
         this.persist = true;
     }
 
+    @Override
     public void detach() {
         this.persist = false;
     }
@@ -127,13 +127,14 @@ public class DiscoDao extends Disco implements Dao{
         //primary key cannot be changed
     }
 
+    @Override
     public void save() {
         queries q;
         List<Object> params = new ArrayList<>();
         params.add(this.getNombre());
+        params.add(this.getFoto());
         params.add(this.getFecha_produccion());
         params.add(this.getId_artista());
-        params.add(this.getFoto());
 
         if (this.id == -1) {
             q = queries.INSERT;
@@ -153,11 +154,13 @@ public class DiscoDao extends Disco implements Dao{
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.out.println("Error al guardar Disco");
         }
 
     }
 
+    @Override
     public void remove() {
         if (this.id != -1) {
             try {
@@ -184,7 +187,7 @@ public class DiscoDao extends Disco implements Dao{
             try {
                 c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
-                c.setFecha_produccion( rs.getDate("Fecha_publicacion").toLocalDate());
+                c.setFecha_produccion(rs.getDate("Fecha_publicacion").toLocalDate());
                 c.setId_artista(rs.getInt("ID_Artista"));
 
                 //falta lazy contacts
@@ -247,6 +250,7 @@ public class DiscoDao extends Disco implements Dao{
                 }
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.out.println("Error al cargar Disco");
         }
         return result;

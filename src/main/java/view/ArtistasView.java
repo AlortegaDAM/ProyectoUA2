@@ -36,7 +36,7 @@ public class ArtistasView {
 
                 case 1:
                     UIUtilities.clearScreen();
-                   // nuevoArtista();
+                   
                     break;
 
                 case 2:

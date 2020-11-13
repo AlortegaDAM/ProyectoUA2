@@ -26,8 +26,8 @@ public class Usuario implements Serializable {
 
     }
 
-    public Usuario(int id, String correo, String nombre, String foto) {
-        this.id = id;
+    public Usuario(String correo, String nombre, String foto) {
+        this.id = -1;
         this.correo = correo;
         this.nombre = nombre;
         this.foto = foto;
@@ -91,7 +91,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return "ID: " + this.id+ ", Correo: " + this.correo + ", Nombre: " + this.nombre;
     }
 
 }

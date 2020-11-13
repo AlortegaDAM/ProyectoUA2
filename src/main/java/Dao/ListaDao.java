@@ -20,7 +20,7 @@ import java.util.List;
 public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements Dao {
 
     enum queries {
-        INSERT("INSERT INTO lista (ID,Nombre,Descripcion,ID_Usuario) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO lista (Nombre,Descripcion,ID_Usuario) VALUES (?,?,?)"),
         ALL("SELECT * FROM lista"),
         GETBYID("SELECT * FROM lista WHERE ID=?"),
         FINDBYNAME("SELECT * FROM lista WHERE Nombre LIKE ?"),
@@ -42,7 +42,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
     JDBCConector conex = new JDBCConector();
 
     public ListaDao(int id, String nombre, String descripcion, int id_usuario) {
-        super(id, nombre, descripcion, id_usuario);
+        super(nombre, descripcion, id_usuario);
         con = conex.createNewDBconnection();
         persist = false;
     }
@@ -82,10 +82,12 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         }
     }
 
+    @Override
     public void persist() {
         this.persist = true;
     }
 
+    @Override
     public void detach() {
         this.persist = false;
     }
@@ -117,6 +119,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         //primary key cannot be changed
     }
 
+    @Override
     public void save() {
         queries q;
         List<Object> params = new ArrayList<>();

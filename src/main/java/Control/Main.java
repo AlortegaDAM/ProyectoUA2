@@ -8,19 +8,15 @@ package Control;
 import com.mycompany.proyectoua2.model.Artista;
 import com.mycompany.proyectoua2.model.Cancion;
 import com.mycompany.proyectoua2.model.Disco;
+import com.mycompany.proyectoua2.model.Lista;
+import com.mycompany.proyectoua2.model.Usuario;
+import java.time.LocalDate;
 
 /**
  *
  * @author adryc
  */
 class Main{
-    public static void main(String[] args) {
-        Artista a = new Artista("Adri", "Artantida", "Foto2.png");
-        Cancion c = new Cancion("Si", 180, 200, null);
-        Controlador control = new Controlador();
-        control.crearArtista(a);
-        control.crearCancion(c);
-        System.out.println(control.mostrarArtistas());
-        System.out.println(control.mostrarCanciones());
+    public static void main(String[] args){
     }
 }

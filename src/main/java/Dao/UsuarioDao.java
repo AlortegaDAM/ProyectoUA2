@@ -20,7 +20,7 @@ import java.util.List;
 public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implements Dao {
 
     enum queries {
-        INSERT("INSERT INTO usuario (ID,Correo,Nombre,Foto) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO usuario (Correo,Nombre,Foto) VALUES (?,?,?)"),
         ALL("SELECT * FROM usuario"),
         GETBYID("SELECT * FROM usuario WHERE ID=?"),
         FINDBYNAME("SELECT * FROM usuario WHERE Nombre LIKE ?"),
@@ -42,7 +42,7 @@ public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implemen
     JDBCConector conex = new JDBCConector();
 
     public UsuarioDao(int id, String nombre, String correo, String foto) {
-        super(id, nombre, correo, foto);
+        super(nombre, correo, foto);
         con = conex.createNewDBconnection();
         persist = false;
     }
@@ -82,10 +82,12 @@ public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implemen
         }
     }
 
+    @Override
     public void persist() {
         this.persist = true;
     }
 
+    @Override
     public void detach() {
         this.persist = false;
     }
@@ -123,6 +125,7 @@ public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implemen
         //primary key cannot be changed
     }
 
+    @Override
     public void save() {
         queries q;
         List<Object> params = new ArrayList<>();
@@ -153,6 +156,7 @@ public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implemen
 
     }
 
+    @Override
     public void remove() {
         if (this.id != -1) {
             try {

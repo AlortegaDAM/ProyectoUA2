@@ -27,8 +27,8 @@ public class Lista implements Serializable {
         this.id_usuario=-1;
     }
 
-    public Lista(int id, String nombre, String descripcion,int id_usuario) {
-        this.id = id;
+    public Lista( String nombre, String descripcion, int id_usuario) {
+        this.id = -1;
         this.nombre = nombre;
         this.descripcion = descripcion;       
         this.id_usuario = id_usuario;

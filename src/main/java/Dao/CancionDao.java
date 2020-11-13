@@ -24,7 +24,7 @@ import java.util.List;
 public class CancionDao extends Cancion implements Dao{
     
     enum queries {
-        INSERT("INSERT INTO cancion (ID,Nombre,Duracion,ID_Disco) VALUES (?,?,?,?)"),
+        INSERT("INSERT INTO cancion (Nombre,Duracion,ID_Disco) VALUES (?,?,?)"),
         ALL("SELECT * FROM cancion"),
         GETBYID("SELECT * FROM cancion WHERE ID=?"),
         FINDBYNAME("SELECT * FROM cancion WHERE Nombre LIKE ?"),
@@ -46,8 +46,8 @@ public class CancionDao extends Cancion implements Dao{
     Connection con;
     private boolean persist;
 
-    public CancionDao(int id, String nombre, int duracion, int ID_Disco) {
-        super(id, nombre, duracion, ID_Disco);
+    public CancionDao(String nombre, int duracion, int ID_Disco) {
+        super(nombre, duracion, ID_Disco);
         
         con = conex.createNewDBconnection();
     }
@@ -60,7 +60,7 @@ public class CancionDao extends Cancion implements Dao{
 
     //DAO
     public CancionDao(Cancion a) {
-        this(a.getId(), a.getNombre(), a.getDuracion(), a.getId_disco());
+        this(a.getNombre(), a.getDuracion(), a.getId_disco());
     }
 
     public CancionDao(int i) {
@@ -125,6 +125,7 @@ public class CancionDao extends Cancion implements Dao{
     
     
 
+    @Override
     public void save() {
         CancionDao.queries q;
         List<Object> params = new ArrayList<>();
@@ -151,6 +152,7 @@ public class CancionDao extends Cancion implements Dao{
             con.commit();
             con.setAutoCommit(true);
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.out.println("Error al guardar cancion");
         }
 
