@@ -24,7 +24,7 @@ public interface IControlador {
     List<Artista> buscarArtistaNombre(String nombre);
     Artista buscarArtistaID(int id);
     void crearArtista(Artista a);
-    void actualizarArtista(Artista a);
+    void actualizarArtista(int id);
     void borrarArtista(int id);
     
     //Controlador para los discos
@@ -32,7 +32,7 @@ public interface IControlador {
     List<Disco> mostrarDiscosNombre(String nombre);
     Disco buscarDiscoID(int id);
     void crearDisco(Disco d);
-    void actualizarDisco(Disco d);
+    void actualizarDisco(int id);
     void borrarDisco(int id);
     void insertarCanciones(ArrayList<Cancion> canciones, Disco d);
     
@@ -41,15 +41,16 @@ public interface IControlador {
     List<Cancion> mostrarCancionesNombre(String nombre);
     Cancion buscarCancionID(int id);
     void crearCancion(Cancion c);
-    void actualizarCancion(Cancion c);
+    void actualizarCancion(int id);
     void borrarCancion(int id);
+    List<Cancion> songsByDisk(int id);
     
     //Controlador para los usuarios
     List<Usuario> mostrarUsuarios();
     List<Usuario> mostrarUsuariosNombre(String nombre);
     Usuario buscarUsuarioID(int id);
     void crearUsuario(Usuario u);
-    void actualizarUsuario(Usuario u);
+    void actualizarUsuario(int id);
     void borrarUsuario(int id);
     
     //Controlador para las listas
@@ -57,7 +58,7 @@ public interface IControlador {
     List<Lista> mostrarListasNombre(String nombre);
     Lista buscarListaID(int id);
     void crearLista(Lista l);
-    void actualizarLista(Lista l);
+    void actualizarLista(int id);
     void borrarLista(int id);
     
     //Controlador para los comentarios
@@ -65,6 +66,6 @@ public interface IControlador {
     List<Comentario> mostrarComentariosNombre(String nombre);
     Comentario buscarComentarioID(int id);
     void crearComentario(Comentario c);
-    void actualizarComentario(Comentario c);
+    void actualizarComentario(int id);
     void borrarComentario(int id);
 }

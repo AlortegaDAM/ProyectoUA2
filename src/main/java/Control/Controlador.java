@@ -66,8 +66,10 @@ public class Controlador implements IControlador{
     }
 
     @Override
-    public void actualizarArtista(Artista a) {
-        ArtistaDao dao = new ArtistaDao(a);
+    public void actualizarArtista(int id) {
+        ArtistaDao dao = new ArtistaDao();
+        Artista a = buscarArtistaID(id);
+        dao = new ArtistaDao(a);
         dao.save();
     }
 
@@ -115,8 +117,10 @@ public class Controlador implements IControlador{
     
 
     @Override
-    public void actualizarDisco(Disco d) {
-        DiscoDao dao = new DiscoDao(d);
+    public void actualizarDisco(int id) {
+        DiscoDao dao = new DiscoDao();
+        Disco d = buscarDiscoID(id);
+        dao = new DiscoDao(d);
         dao.save();
     }
 
@@ -173,8 +177,10 @@ public class Controlador implements IControlador{
     }
 
     @Override
-    public void actualizarCancion(Cancion c) {
-        CancionDao dao = new CancionDao(c);
+    public void actualizarCancion(int id) {
+        CancionDao dao = new CancionDao();
+        Cancion c = buscarCancionID(id);
+        dao = new CancionDao(c);
         dao.save();
     }
 
@@ -220,8 +226,10 @@ public class Controlador implements IControlador{
     }
 
     @Override
-    public void actualizarUsuario(Usuario u) {
-        UsuarioDao dao = new UsuarioDao(u);
+    public void actualizarUsuario(int id) {
+        UsuarioDao dao = new UsuarioDao();
+        Usuario u = buscarUsuarioID(id);
+        dao = new UsuarioDao(u);
         dao.save();   
     }
 
@@ -315,8 +323,10 @@ public class Controlador implements IControlador{
     }
 
     @Override
-    public void actualizarComentario(Comentario c) {
-        ComentarioDao dao = new ComentarioDao(c);
+    public void actualizarComentario(int id) {
+        ComentarioDao dao = new ComentarioDao();
+        Comentario c = buscarComentarioID(id);
+        dao = new ComentarioDao(c);
         dao.save();
     }
 
@@ -325,6 +335,13 @@ public class Controlador implements IControlador{
         Comentario removed = buscarComentarioID(id);
         ComentarioDao dao= new ComentarioDao(removed);
         dao.remove();
+    }
+
+    @Override
+    public List<Cancion> songsByDisk(int id) {
+        List<Cancion> result = new ArrayList<>();
+        DiscoDao dao = new DiscoDao();
+        
     }
     
     
