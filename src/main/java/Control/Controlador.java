@@ -351,6 +351,19 @@ public class Controlador implements IControlador{
         }
         return result;
     }
+
+    @Override
+    public List<Disco> diskByArtist(int id) {
+        List<Disco> result = new ArrayList<>();
+        ArtistaDao dao = new ArtistaDao();
+        List<Disco> aux = mostrarDiscos();
+        for(Disco d : aux){
+            if(d.getId_artista() == id){
+                result.add(d);
+            }
+        }
+        return result;
+    }
     
     
 }
