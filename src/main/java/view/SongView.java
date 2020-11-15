@@ -10,7 +10,7 @@ import com.mycompany.proyectoua2.model.Cancion;
  */
 public class SongView {
 
-    //ontroller.Controlador control = new Controller.Controlador();
+    Controller.Controlador control = new Controller.Controlador();
     int id;
     int duracion;
 
@@ -43,21 +43,21 @@ public class SongView {
                     System.out.println("Introduce el ID del Disco");
                     id = UIUtilities.getInt();
                     a.setId_disco(duracion);
-                    //control.crearCancion(a);
+                    control.crearCancion(a);
                     break;
 
                 case 2:
                     UIUtilities.clearScreen();
                     System.out.println("Introduce el id de la cancion que quieras editar");
                     id = UIUtilities.getInt();
-                    //control.actualizarCancion(id);
+                    control.actualizarCancion(id);
                     break;
 
                 case 3:
                     UIUtilities.clearScreen();
                     System.out.println("Introduce el id de la cancion que quieras borrar");
                     int id = UIUtilities.getInt();
-                    //control.borrarArtista(id);
+                    control.borrarArtista(id);
                     break;
 
                 case 4:

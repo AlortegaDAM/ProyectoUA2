@@ -9,7 +9,7 @@ import com.mycompany.proyectoua2.model.Artista;
  */
 public class ArtistView {
 
-    //Controller.Controlador control = new Controller.Controlador();
+    Controller.Controlador control = new Controller.Controlador();
     view.listArtistView lav = new view.listArtistView();
     view.MainView main=new view.MainView();
     

@@ -11,40 +11,39 @@ import Util.UIUtilities;
  *
  * @author Carlos
  */
-public class listArtistView {
-        
-
-    Controller.Controlador control=new Controller.Controlador();
-    view.ArtistView v=new view.ArtistView();
+public class listUserView {
     
-    public  void listArtist() {
+    Controller.Controlador control=new Controller.Controlador();
+    view.UserView v=new view.UserView();
+    
+    public  void listUser() {
         int opcion = 0;
 
         do {
-            System.out.println("Listado de Artistas");
-            System.out.println("1)Listar todos los artistas");
-            System.out.println("2)Listar todos los artistas por nombre");
-            System.out.println("3)Listar todos los artistas por id");
+            System.out.println("Listado de usuarios");
+            System.out.println("1)Listar todos los usuarios");
+            System.out.println("2)Listar todos los usuarios por nombre");
+            System.out.println("3)Listar todos los usuarios por id");
             System.out.println("4)Volver atrás");
             opcion = UIUtilities.getInt();
         } while (opcion < 1 || opcion > 4);
 
         switch (opcion) {
             case 1:
-                control.mostrarArtistas();
+                control.mostrarUsuarios();
                 break;
             case 2:
-                System.out.println("Introduce el nombre del artista que quieras buscar");
+                System.out.println("Introduce el nombre del usuarios que quieras buscar");
                 String nombre=UIUtilities.getString();
-                control.buscarArtistaNombre(nombre);
+                control.mostrarUsuariosNombre(nombre);
                 break;
             case 3:
-                System.out.println("Introduce la ID del artista que quieras buscar");
+                System.out.println("Introduce la ID del usuarios que quieras buscar");
                 int id=UIUtilities.getInt();
-                control.buscarArtistaID(id);
+                control.buscarUsuarioID(id);
                 break;
             case 4:
-                v.artistas();
+                v.usuarios();
                 break;
         }
     }

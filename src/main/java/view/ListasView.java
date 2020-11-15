@@ -3,6 +3,7 @@ package view;
 
 import Util.UIUtilities;
 import static Util.UIUtilities.espera;
+import com.mycompany.proyectoua2.model.Lista;
 
 
 
@@ -13,8 +14,8 @@ import static Util.UIUtilities.espera;
  * @author Vinil
  */
 public class ListasView {
-    
-        public static void listasReproduccion() {
+    Control.Controlador control=new Control.Controlador();
+        public  void listasReproduccion() {
         int opcionlista;
         do {
             System.out.println("Bienvenido al menu Listas de Reproducción");
@@ -32,18 +33,31 @@ public class ListasView {
             switch (opcionlista) {
 
                 case 1:
-                    UIUtilities.clearScreen();
-                  //  nuevaLista();
+                     UIUtilities.clearScreen();
+                    Lista a = new Lista();
+                    System.out.println("Introduce el nombre");
+                    String nombre = UIUtilities.getString();
+                    a.setNombre(nombre);
+                    System.out.println("Introduce la descripcion");
+                    String descripcion = UIUtilities.getString();
+                    a.setDescripcion(descripcion);
+                    
+                 
+                    control.crearLista(a);
                     break;
 
                 case 2:
                     UIUtilities.clearScreen();
-                   // editarLista();
+                    System.out.println("Introduce el id de la lista que quieras editar");
+                    int id = UIUtilities.getInt();
+                    control.actualizarCancion(id);
                     break;
 
                 case 3:
-                    UIUtilities.clearScreen();
-                   // borrarLista();
+                   UIUtilities.clearScreen();
+                    System.out.println("Introduce el id de la lista que quieras borrar");
+                     id = UIUtilities.getInt();
+                    control.borrarArtista(id);
                     break;
 
                 case 4:

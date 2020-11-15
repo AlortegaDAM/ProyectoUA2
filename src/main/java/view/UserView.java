@@ -14,7 +14,7 @@ import com.mycompany.proyectoua2.model.Usuario;
  * @author Vinil
  */
 public class UserView {
-    //Controller.Controlador control=new Controller.Controlador();
+    Controller.Controlador control=new Controller.Controlador();
     int id;
         public  void usuarios() {
         int opcionusuario;
