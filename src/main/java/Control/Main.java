@@ -23,7 +23,7 @@ import java.util.List;
 class Main{
     public static void main(String[] args){
         Controlador control = new Controlador();
-        control.addSongToList(1, 1);
+        System.out.println(control.getSongsByList(1));
        
     }
 }

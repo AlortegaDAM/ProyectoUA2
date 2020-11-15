@@ -48,13 +48,8 @@ public class Controlador implements IControlador{
 
     @Override
     public Artista buscarArtistaID(int id) {
-        List<Artista> aux = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(id);
         ArtistaDao dao = new ArtistaDao();
-        Artista result = new Artista();
-        aux = dao.getById(con, ids);
-        result = aux.get(0);
+        Artista result = dao.getById(con, id);
         return result;
     }
 
@@ -98,13 +93,8 @@ public class Controlador implements IControlador{
 
     @Override
     public Disco buscarDiscoID(int id) {
-        List<Disco> aux = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(id);
         DiscoDao dao = new DiscoDao();
-        Disco result = new Disco();
-        aux = dao.getById(con, ids);
-        result = aux.get(0);
+        Disco result = dao.getById(con, id);
         return result;
     }
 
@@ -160,13 +150,8 @@ public class Controlador implements IControlador{
 
     @Override
     public Cancion buscarCancionID(int id) {
-        List<Cancion> aux = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(id);
         CancionDao dao = new CancionDao();
-        Cancion result = new Cancion();
-        aux = dao.getById(con, ids);
-        result = aux.get(0);
+        Cancion result = dao.getById(con, id);
         return result;
     }
 
@@ -209,13 +194,9 @@ public class Controlador implements IControlador{
 
     @Override
     public Usuario buscarUsuarioID(int id) {
-        List<Usuario> aux = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(id);
+
         UsuarioDao dao = new UsuarioDao();
-        Usuario result = new Usuario();
-        aux = dao.getById(con, ids);
-        result = aux.get(0);
+        Usuario result = dao.getById(con, id);
         return result;
     }
 
@@ -304,16 +285,8 @@ public class Controlador implements IControlador{
 
     @Override
     public Comentario buscarComentarioID(int id) {
-        System.out.println("1");
         ComentarioDao dao = new ComentarioDao();
-        Comentario result = new Comentario();
-        List<Comentario> aux = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-         System.out.println("2");
-        ids.add(id);
-         System.out.println("3");
-        aux = dao.getById(con, ids);
-        result = aux.get(0);
+        Comentario result = dao.getById(con, id);
         return result;
     }
 
