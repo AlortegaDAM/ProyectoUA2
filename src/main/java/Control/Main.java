@@ -5,12 +5,16 @@
  */
 package Control;
 
+import Dao.ListaDao;
 import com.mycompany.proyectoua2.model.Artista;
 import com.mycompany.proyectoua2.model.Cancion;
 import com.mycompany.proyectoua2.model.Disco;
 import com.mycompany.proyectoua2.model.Lista;
 import com.mycompany.proyectoua2.model.Usuario;
+import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,5 +22,8 @@ import java.time.LocalDate;
  */
 class Main{
     public static void main(String[] args){
+        Controlador control = new Controlador();
+        control.addSongToList(1, 1);
+       
     }
 }

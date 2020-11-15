@@ -9,6 +9,7 @@ import com.mycompany.proyectoua2.model.Lista;
 import Control.JDBCConector;
 import com.mycompany.proyectoua2.model.Cancion;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -165,9 +166,8 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         try {
             //Comienza transacción
             con.setAutoCommit(false);
-
             int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERTSONGLIST ? true : false));
-            if (q == ListaDao.queries.INSERT) {
+            if (q == ListaDao.queries.INSERTSONGLIST) {
                 this.id = rs;
             }
             con.commit();
@@ -202,6 +202,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         Lista c = new Lista();
         if (rs != null) {
             try {
+                
                 c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
                 c.setDescripcion(rs.getString("Descripcion"));
@@ -223,11 +224,16 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
             ResultSet rs = Util.ConnectionUtil.execQuery(con, queries.ALL.getQ(), null);
             if (rs != null) {
                 while (rs.next()) {
+                    System.out.println("prueba0");
                     Lista n = ListaDao.instanceBuilder(rs);
+                    System.out.println("prueba1");
                     result.add(n);
+                    System.out.println(n);
+                    
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex){
+            ex.printStackTrace();
             System.out.println("Error al cargar lista");
         }
         return result;
@@ -266,22 +272,21 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         return result;
     }
 
-    public static List<Lista> getById(Connection con, List<Integer> ids) {
-        List<Lista> result = new ArrayList<>();
+    public static Lista getById(Connection con, int id) {
+        Lista result = new Lista();
+        String consulta = "SELECT * FROM lista where id =?";
         try {
-            List<String> newList = new ArrayList<String>(ids.size());
-            for (Integer myInt : ids) {
-                newList.add(String.valueOf(myInt));
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                result.setId(rs.getInt("ID"));
+                result.setNombre(rs.getString("Nombre"));
+                result.setDescripcion(rs.getString("Descripcion"));
+                result.setId_usuario(rs.getInt("ID_Usuario"));
+                
             }
-            String queryTotal = queries.GETBYID.getQ() + "(" + String.join(",", newList) + ");";
-
-            ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
-            if (rs != null) {
-                while (rs.next()) {
-                    Lista n = ListaDao.instanceBuilder(rs);
-                    result.add(n);
-                }
-            }
+            
         } catch (SQLException ex) {
             System.out.println("Error al cargar lista");
         }

@@ -11,11 +11,15 @@ package Dao;
  */
 import Control.JDBCConector;
 import com.mycompany.proyectoua2.model.Cancion;
+import com.mycompany.proyectoua2.model.Lista;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -231,26 +235,26 @@ public class CancionDao extends Cancion implements Dao{
         return result;
     }
 
-    public static List<Cancion> getById(Connection con, List<Integer> ids) {
-        List<Cancion> result = new ArrayList<>();
+    public static Cancion getById(Connection con, int id) {
+        Cancion result = new Cancion();
+        String consulta = "SELECT * FROM cancion where id =?";
         try {
-            List<String> newList = new ArrayList<String>(ids.size());
-            for (Integer myInt : ids) {
-                newList.add(String.valueOf(myInt));
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                result.setId(rs.getInt("ID"));
+                result.setNombre(rs.getString("Nombre"));
+                result.setDuracion(rs.getInt("Duracion"));
+                result.setId_disco(rs.getInt("ID_Disco"));
+                
             }
-            String queryTotal = CancionDao.queries.GETBYID.getQ() + "(" + String.join(",", newList) + ");";
-
-            ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
-            if (rs != null) {
-                while (rs.next()) {
-                    Cancion n = CancionDao.instanceBuilder(rs);
-                    result.add(n);
-                }
-            }
+            
         } catch (SQLException ex) {
-            System.out.println("Error al cargar cancion");
+            System.out.println("Error al cargar lista");
         }
         return result;
     }
+    
     
 }

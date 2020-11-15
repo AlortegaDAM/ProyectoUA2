@@ -14,7 +14,7 @@ import com.mycompany.proyectoua2.model.Disco;
  */
 public class DiscosView {
 
-    Controller.Controlador control = new Controller.Controlador();
+    //Controller.Controlador control = new Controller.Controlador();
     int id;
 
     public void discos() {
@@ -46,21 +46,21 @@ public class DiscosView {
                     System.out.println("Introduce fecha de publicacion");
                     //Fecha de publicacion
                     //  a.setFecha_produccion(duracion);             
-                    control.crearDisco(a);
+                    //control.crearDisco(a);
                     break;
 
                 case 2:
                     UIUtilities.clearScreen();
                     System.out.println("Introduce el id del disco que quieras editar");
                     id = UIUtilities.getInt();
-                    control.actualizarDisco(id);
+                    //control.actualizarDisco(id);
                     break;
 
                 case 3:
                     UIUtilities.clearScreen();
                     System.out.println("Introduce el id del disco que quieras borrar");
                     id = UIUtilities.getInt();
-                    control.borrarDisco(id);
+                    //control.borrarDisco(id);
                     break;
 
                 case 4:

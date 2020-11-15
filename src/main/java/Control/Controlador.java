@@ -259,13 +259,9 @@ public class Controlador implements IControlador{
 
     @Override
     public Lista buscarListaID(int id) {
-        List<Lista> aux = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(id);
-        ListaDao dao = new ListaDao();
         Lista result = new Lista();
-        aux = dao.getById(con, ids);
-        result = aux.get(0);
+        ListaDao dao = new ListaDao();
+        result = dao.getById(con, id);
         return result;
     }
 
@@ -308,11 +304,14 @@ public class Controlador implements IControlador{
 
     @Override
     public Comentario buscarComentarioID(int id) {
+        System.out.println("1");
         ComentarioDao dao = new ComentarioDao();
         Comentario result = new Comentario();
         List<Comentario> aux = new ArrayList<>();
         List<Integer> ids = new ArrayList<>();
+         System.out.println("2");
         ids.add(id);
+         System.out.println("3");
         aux = dao.getById(con, ids);
         result = aux.get(0);
         return result;
@@ -342,7 +341,6 @@ public class Controlador implements IControlador{
     @Override
     public List<Cancion> songsByDisk(int id) {
         List<Cancion> result = new ArrayList<>();
-        DiscoDao dao = new DiscoDao();
         List<Cancion> aux = mostrarCanciones();
         for(Cancion c : aux){
             if(c.getId_disco() == id){
@@ -362,6 +360,22 @@ public class Controlador implements IControlador{
                 result.add(d);
             }
         }
+        return result;
+    }
+
+    @Override
+    public void addSongToList(int songid, int listid) {
+        Lista l = buscarListaID(listid);
+        ListaDao dao = new ListaDao(l);
+        dao.saveList_Song(songid);
+    }
+
+    @Override
+    public List<Cancion> getSongsByList(int listid) {
+        List <Cancion> result = new ArrayList<>();
+        Lista l = buscarListaID(listid);
+        ListaDao dao = new ListaDao(l);
+        result = dao.getAllSongs(con);
         return result;
     }
     

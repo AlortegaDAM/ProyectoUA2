@@ -122,6 +122,13 @@ public class Lista implements Serializable {
     public void setCanciones(ArrayList<Cancion> canciones) {
         this.canciones = canciones;
     }
+
+    @Override
+    public String toString() {
+        return "Lista{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", creador=" + creador + ", id_usuario=" + id_usuario + ", canciones=" + canciones + '}';
+    }
+    
+    
     
     
 }

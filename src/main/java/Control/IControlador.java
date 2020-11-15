@@ -35,6 +35,7 @@ public interface IControlador {
     void actualizarDisco(int id);
     void borrarDisco(int id);
     void insertarCanciones(ArrayList<Cancion> canciones, Disco d);
+    List<Disco> diskByArtist(int id);
     
     //Controlador para las canciones
     List<Cancion> mostrarCanciones();
@@ -68,4 +69,7 @@ public interface IControlador {
     void crearComentario(Comentario c);
     void actualizarComentario(int id);
     void borrarComentario(int id);
+    
+    void addSongToList(int songid, int listid);
+    List<Cancion> getSongsByList(int listid);
 }

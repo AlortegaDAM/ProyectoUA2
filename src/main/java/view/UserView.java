@@ -14,7 +14,7 @@ import com.mycompany.proyectoua2.model.Usuario;
  * @author Vinil
  */
 public class UserView {
-    Controller.Controlador control=new Controller.Controlador();
+    //Controller.Controlador control=new Controller.Controlador();
     int id;
         public  void usuarios() {
         int opcionusuario;
@@ -45,13 +45,13 @@ public class UserView {
                     System.out.println("Introduce la URL de la foto");
                     String foto = UIUtilities.getString();
                     a.setFoto(foto);
-                    control.crearUsuario(a);
+                    //control.crearUsuario(a);
                     break;
                 case 2:
                     UIUtilities.clearScreen();
                     System.out.println("Introduce el id del usuario que quieras editar");
                     id = UIUtilities.getInt();
-                    control.actualizarUsuario(id);
+                    //control.actualizarUsuario(id);
                     break;
 
 

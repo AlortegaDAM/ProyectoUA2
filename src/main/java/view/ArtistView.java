@@ -9,7 +9,7 @@ import com.mycompany.proyectoua2.model.Artista;
  */
 public class ArtistView {
 
-    Controller.Controlador control = new Controller.Controlador();
+    //Controller.Controlador control = new Controller.Controlador();
     view.listArtistView lav = new view.listArtistView();
     view.MainView main=new view.MainView();
     
@@ -42,7 +42,7 @@ public class ArtistView {
                     System.out.println("Introduce la URL de la foto");
                     String foto = UIUtilities.getString();
                     Artista a = new Artista(nombre, nacionalidad, foto);
-                    control.crearArtista(a);
+                    //control.crearArtista(a);
                     break;
 
                 case 2:
