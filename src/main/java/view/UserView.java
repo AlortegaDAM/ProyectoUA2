@@ -3,6 +3,7 @@ package view;
 
 import Util.UIUtilities;
 import static Util.UIUtilities.espera;
+import com.mycompany.proyectoua2.model.Usuario;
 
 
 
@@ -12,9 +13,10 @@ import static Util.UIUtilities.espera;
  *
  * @author Vinil
  */
-public class UsuariosView {
-    
-        public static void usuarios() {
+public class UserView {
+    Controller.Controlador control=new Controller.Controlador();
+    int id;
+        public  void usuarios() {
         int opcionusuario;
         do {
             System.out.println("Bienvenido al menu Usuarios");
@@ -32,18 +34,32 @@ public class UsuariosView {
             switch (opcionusuario) {
 
                 case 1:
-                    UIUtilities.clearScreen();
-                    //nuevoUsuario();
+                     UIUtilities.clearScreen();
+                    Usuario a = new Usuario();
+                    System.out.println("Introduce el nombre");
+                    String nombre = UIUtilities.getString();
+                    a.setNombre(nombre);
+                    System.out.println("Introduce el correo");
+                    String correo = UIUtilities.getString();
+                    a.setCorreo(correo);
+                    System.out.println("Introduce la URL de la foto");
+                    String foto = UIUtilities.getString();
+                    a.setFoto(foto);
+                    control.crearUsuario(a);
                     break;
-
                 case 2:
                     UIUtilities.clearScreen();
-                    //editarUsuario();
+                    System.out.println("Introduce el id del usuario que quieras editar");
+                    id = UIUtilities.getInt();
+                    control.actualizarUsuario(id);
                     break;
+
 
                 case 3:
                     UIUtilities.clearScreen();
-                    //borrarUsuario();
+                    System.out.println("Introduce el id del usuario que quieras borrar");
+                    int id = UIUtilities.getInt();
+                    control.borrarUsuario(id);
                     break;
 
                 case 4:

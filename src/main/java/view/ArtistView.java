@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import Util.UIUtilities;
-import static Util.UIUtilities.espera;
-
-
-
+import com.mycompany.proyectoua2.model.Artista;
 
 /**
  *
  * @author Vinil
  */
-public class ArtistasView {
+public class ArtistView {
+
+    Controller.Controlador control = new Controller.Controlador();
+    view.listArtistView lav = new view.listArtistView();
+    view.MainView main=new view.MainView();
     
-        public static void artistas() {
+
+    public void artistas() {
+        int id;
         int opcionartista;
         do {
             System.out.println("Bienvenido al menu Artistas");
@@ -29,33 +27,45 @@ public class ArtistasView {
             System.out.println("4.- Listado de Artistas");
             System.out.println("5.- Volver al menú principal");
             System.out.println("----------------------------");
-            
+
             opcionartista = UIUtilities.getInt();
 
             switch (opcionartista) {
 
                 case 1:
                     UIUtilities.clearScreen();
-                   
+
+                    System.out.println("Introduce el nombre");
+                    String nombre = UIUtilities.getString();
+                    System.out.println("Introduce la nacionalidad");
+                    String nacionalidad = UIUtilities.getString();
+                    System.out.println("Introduce la URL de la foto");
+                    String foto = UIUtilities.getString();
+                    Artista a = new Artista(nombre, nacionalidad, foto);
+                    control.crearArtista(a);
                     break;
 
                 case 2:
+                    //FALTA POR HACER
                     UIUtilities.clearScreen();
-                   // editarArtista();
+                    id = UIUtilities.getInt();
+
                     break;
 
                 case 3:
                     UIUtilities.clearScreen();
-                  //  borrarArtista();
+                    System.out.println("Introduce el id del Artista que quieras borrar");
+                    id = UIUtilities.getInt();
+                    control.borrarArtista(id);
                     break;
 
                 case 4:
                     UIUtilities.clearScreen();
-                   //s listarArtista();
-                    espera();
+                    lav.listArtist();
                     break;
-        
+
                 case 5:
+                    main.mainView();
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
@@ -63,5 +73,5 @@ public class ArtistasView {
             }
         } while (opcionartista != 5);
     }
-    
+
 }

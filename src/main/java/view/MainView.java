@@ -2,18 +2,22 @@
 package view;
 
 import Util.UIUtilities;
-import static view.ArtistasView.artistas;
-import static view.CancionesView.canciones;
-import static view.DiscosView.discos;
-import static view.ListasView.listasReproduccion;
-import static view.UsuariosView.usuarios;
+
 
 /**
  *
  * @author Vinil
  */
 public class MainView {
-    public static void mainView() {
+    
+    view.ArtistView a=new view.ArtistView();
+    view.SongView c=new view.SongView();
+    view.DiscosView d=new view.DiscosView();
+    view.ListasView l=new view.ListasView();
+    view.UserView u=new view.UserView();
+
+    
+    public void mainView() {
         
         int opciones;
         do {
@@ -33,23 +37,23 @@ public class MainView {
             switch (opciones) {
                 case 1:
                     UIUtilities.clearScreen();
-                    artistas();
+                    a.artistas();
                     break;
                 case 2:
                     UIUtilities.clearScreen();
-                    canciones();
+                    c.canciones();
                     break;
                 case 3:
                     UIUtilities.clearScreen();
-                    discos();
+                    d.discos();
                     break;
                 case 4:
                     UIUtilities.clearScreen();
-                    listasReproduccion();
+                    l.listasReproduccion();
                     break;
                 case 5:
                     UIUtilities.clearScreen();
-                    usuarios();
+                    u.usuarios();
                 case 6:
                     System.out.println("Saliendo del sistema de Reparto");
 
