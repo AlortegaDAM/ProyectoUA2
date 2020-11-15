@@ -7,6 +7,7 @@ package Dao;
 
 import com.mycompany.proyectoua2.model.Lista;
 import Control.JDBCConector;
+import com.mycompany.proyectoua2.model.Cancion;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +25,11 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         ALL("SELECT * FROM lista"),
         GETBYID("SELECT * FROM lista WHERE ID=?"),
         FINDBYNAME("SELECT * FROM lista WHERE Nombre LIKE ?"),
+        INSERTSONGLIST("INSERT INTO lista_cancion (ID_Lista, ID_Cancion) VALUES (?,?)"),
+        GETSONGS("SELECT can.* FROM cancion can"
+                + "INNER JOIN lista_cancion lc ON lc.ID_Cancion=can.ID "
+                + "INNER JOIN lista l ON lc.ID_Lista=l.ID "
+                + "WHERE l.ID=?"),
         UPDATE("UPDATE lista SET Nombre = ?, Descripcion = ? WHERE ID = ?"),
         REMOVE("DELETE FROM lista WHERE ID=?");
         private String q;
@@ -100,8 +106,6 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         }
     }
 
-  
-
     @Override
     public void setNombre(String nombre) {
         super.setNombre(nombre);
@@ -139,6 +143,30 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
             con.setAutoCommit(false);
 
             int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERT ? true : false));
+            if (q == ListaDao.queries.INSERT) {
+                this.id = rs;
+            }
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException ex) {
+            System.out.println("Error al guardar lista");
+        }
+
+    }
+
+    public void saveList_Song(int id_cancion) {
+        queries q;
+        List<Object> params = new ArrayList<>();
+        params.add(this.getId());
+        params.add(id_cancion);
+
+        q = queries.INSERTSONGLIST;
+
+        try {
+            //Comienza transacción
+            con.setAutoCommit(false);
+
+            int rs = Util.ConnectionUtil.execUpdate(con, q.getQ(), params, (q == queries.INSERTSONGLIST ? true : false));
             if (q == ListaDao.queries.INSERT) {
                 this.id = rs;
             }
@@ -196,6 +224,22 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
             if (rs != null) {
                 while (rs.next()) {
                     Lista n = ListaDao.instanceBuilder(rs);
+                    result.add(n);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al cargar lista");
+        }
+        return result;
+    }
+
+    public static List<Cancion> getAllSongs(Connection con) {
+        List<Cancion> result = new ArrayList<>();
+        try {
+            ResultSet rs = Util.ConnectionUtil.execQuery(con, queries.GETSONGS.getQ(), null);
+            if (rs != null) {
+                while (rs.next()) {
+                    Cancion n = CancionDao.instanceBuilder(rs);
                     result.add(n);
                 }
             }
