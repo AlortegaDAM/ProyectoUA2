@@ -114,6 +114,36 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
             save();
         }
     }
+    
+    public static List<Cancion> getAllSongs(Connection con, int idlista) {
+        List<Cancion> result = new ArrayList<>();
+        Cancion c = new Cancion();
+        String sqlp="SELECT T1.ID_Cancion, T2.ID, T2.Nombre, T2.Duracion, T2.ID_Disco\n" +
+                    "FROM lista_cancion T1, cancion T2\n" +
+                    "WHERE T1.ID_Cancion =  T2.ID\n" +
+                    "    AND T1.ID_Lista = ?";
+        ResultSet rs;
+        try{
+            //establecer conexion
+           //con=cn.Conectar();
+            //preparación de la sentencia SQL
+            PreparedStatement ps;
+            ps = con.prepareStatement(sqlp);
+            ps.setInt(1,idlista);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                c.setId(rs.getInt("ID"));
+                c.setNombre(rs.getString("Nombre"));
+                c.setDuracion(rs.getInt("Duracion"));
+                c.setId_disco(rs.getInt("ID_Disco"));
+                result.add(c);
+            }
+
+
+    }   catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    return result;}
 
     @Override
     public void setId(int id) {

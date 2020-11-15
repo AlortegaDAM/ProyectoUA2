@@ -37,6 +37,7 @@ public class Controlador implements IControlador{
         result = dao.getAll(con);
         return result;
     }
+    
 
     @Override
     public List<Artista> buscarArtistaNombre(String nombre) {
@@ -343,14 +344,16 @@ public class Controlador implements IControlador{
         dao.saveList_Song(songid);
     }
 
-    @Override
+   @Override
     public List<Cancion> getSongsByList(int listid) {
-        List <Cancion> result = new ArrayList<>();
+        List<Cancion> result = new ArrayList<>();
         Lista l = buscarListaID(listid);
         ListaDao dao = new ListaDao(l);
-        result = dao.getAllSongs(con);
+        result = dao.getAllSongs(con, listid);
         return result;
     }
+    
+    
     
     
 }
