@@ -274,7 +274,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
 
     public static Lista getById(Connection con, int id) {
         Lista result = new Lista();
-        String consulta = "SELECT * FROM lista where id =?";
+        String consulta = "SELECT * FROM lista where ID =?";
         try {
             PreparedStatement ps = con.prepareStatement(consulta);
             ps.setInt(1,id);

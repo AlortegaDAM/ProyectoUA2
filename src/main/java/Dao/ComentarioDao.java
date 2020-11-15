@@ -12,6 +12,7 @@ package Dao;
 import Control.JDBCConector;
 import com.mycompany.proyectoua2.model.Comentario;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class ComentarioDao extends Comentario implements Dao{
      enum queries {
-        INSERT("INSERT INTO comentario (IMensaje,ID_Usuario,ID_Lista) VALUES (?,?,?)"),
+        INSERT("INSERT INTO comentario (Mensaje,ID_Usuario,ID_Lista) VALUES (?,?,?)"),
         ALL("SELECT * FROM comentario"),
         GETBYID("SELECT * FROM comentario WHERE ID=?"),
         FINDBYNAME("SELECT * FROM comentario WHERE Mensaje LIKE ?"),
@@ -224,26 +225,27 @@ public class ComentarioDao extends Comentario implements Dao{
         return result;
     }
 
-    public static List<Comentario> getById(Connection con, List<Integer> ids) {
-        List<Comentario> result = new ArrayList<>();
+    public static Comentario getById(Connection con, int id) {
+        Comentario result = new Comentario();
+        String consulta = "SELECT * FROM comentario where ID =?";
         try {
-            List<String> newList = new ArrayList<String>(ids.size());
-            for (Integer myInt : ids) {
-                newList.add(String.valueOf(myInt));
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                result.setId(rs.getInt("ID"));
+                result.setMensaje(rs.getString("Mensaje"));
+                result.setID_Usuario(rs.getInt("ID_Usuario"));
+                result.setID_Lista(rs.getInt("ID_Lista"));
+                
+                
             }
-            String queryTotal = ComentarioDao.queries.GETBYID.getQ() + "(" + String.join(",", newList) + ");";
-
-            ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
-            if (rs != null) {
-                while (rs.next()) {
-                    Comentario n = ComentarioDao.instanceBuilder(rs);
-                    result.add(n);
-                }
-            }
+            
         } catch (SQLException ex) {
-            System.out.println("Error al cargar Comentario");
+            System.out.println("Error al cargar artista");
         }
         return result;
     }
+
 }
 

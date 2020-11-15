@@ -8,6 +8,7 @@ package Dao;
 import Control.JDBCConector;
 import com.mycompany.proyectoua2.model.Disco;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -233,25 +234,24 @@ public class DiscoDao extends Disco implements Dao {
         return result;
     }
 
-    public static List<Disco> getById(Connection con, List<Integer> ids) {
-        List<Disco> result = new ArrayList<>();
+    public static Disco getById(Connection con, int id) {
+        Disco result = new Disco();
+        String consulta = "SELECT * FROM disco where ID =?";
         try {
-            List<String> newList = new ArrayList<String>(ids.size());
-            for (Integer myInt : ids) {
-                newList.add(String.valueOf(myInt));
-            }
-            String queryTotal = queries.GETBYID.getQ() + "(" + String.join(",", newList) + ");";
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result.setId(rs.getInt("ID"));
+                result.setNombre(rs.getString("Nombre"));
+                result.setFoto(rs.getString("Foto"));
+                result.setFecha_produccion(rs.getDate("Fecha_publicacion").toLocalDate());
+                result.setId_artista(rs.getInt("ID_Artista"));
 
-            ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
-            if (rs != null) {
-                while (rs.next()) {
-                    Disco n = DiscoDao.instanceBuilder(rs);
-                    result.add(n);
-                }
             }
+
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            System.out.println("Error al cargar Disco");
+            System.out.println("Error al cargar artista");
         }
         return result;
     }

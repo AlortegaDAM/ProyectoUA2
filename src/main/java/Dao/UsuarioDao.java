@@ -8,6 +8,7 @@ package Dao;
 import com.mycompany.proyectoua2.model.Usuario;
 import Control.JDBCConector;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -229,24 +230,23 @@ public class UsuarioDao extends com.mycompany.proyectoua2.model.Usuario implemen
         return result;
     }
 
-    public static List<Usuario> getById(Connection con, List<Integer> ids) {
-        List<Usuario> result = new ArrayList<>();
+    public static Usuario getById(Connection con, int id) {
+        Usuario result = new Usuario();
+        String consulta = "SELECT * FROM disco where ID =?";
         try {
-            List<String> newList = new ArrayList<String>(ids.size());
-            for (Integer myInt : ids) {
-                newList.add(String.valueOf(myInt));
-            }
-            String queryTotal = queries.GETBYID.getQ() + "(" + String.join(",", newList) + ");";
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result.setId(rs.getInt("ID"));
+                result.setCorreo(rs.getString("Correo"));
+                result.setNombre(rs.getString("Nombre"));
+                result.setFoto(rs.getString("Foto"));
 
-            ResultSet rs = Util.ConnectionUtil.execQuery(con, queryTotal, null);
-            if (rs != null) {
-                while (rs.next()) {
-                    Usuario n = UsuarioDao.instanceBuilder(rs);
-                    result.add(n);
-                }
             }
+
         } catch (SQLException ex) {
-            System.out.println("Error al cargar usuario");
+            System.out.println("Error al cargar artista");
         }
         return result;
     }
