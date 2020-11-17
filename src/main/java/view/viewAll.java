@@ -22,7 +22,7 @@ public class viewAll {
 
     Control.Controlador control = new Control.Controlador();
 
-    public  void mainView() {
+    public void mainView() {
 
         int opciones;
         do {
@@ -94,7 +94,7 @@ public class viewAll {
                     break;
 
                 case 2:
-                   editarArtistaM();
+                    editarArtistaM();
 
                     break;
 
@@ -117,7 +117,7 @@ public class viewAll {
         } while (opcionartista != 5);
     }
 
-    public  void canciones() {
+    public void canciones() {
         int opcioncancion;
         do {
             System.out.println("Bienvenido al menu Canciones");
@@ -135,33 +135,15 @@ public class viewAll {
             switch (opcioncancion) {
 
                 case 1:
-                    UIUtilities.clearScreen();
-                    Cancion a = new Cancion();
-                    System.out.println("Introduce el nombre");
-                    String nombre = UIUtilities.getString();
-                    a.setNombre(nombre);
-                    System.out.println("Introduce la duracion");
-                     int duracion = UIUtilities.getInt();
-                    a.setDuracion(duracion);
-                    System.out.println("Introduce el ID del Disco");
-                    int id = UIUtilities.getInt();
-                    a.setId_disco(duracion);
-                    control.crearCancion(a);
+                    crearCancionM();
                     break;
 
-
                 case 2:
-                    UIUtilities.clearScreen();
-                    System.out.println("Introduce el id de la cancion que quieras editar");
-                    id = UIUtilities.getInt();
-                    control.actualizarCancion(id);
+                    borrarArtistaM();
                     break;
 
                 case 3:
-                    UIUtilities.clearScreen();
-                    System.out.println("Introduce el id de la cancion que quieras borrar");
-                    id = UIUtilities.getInt();
-                    control.borrarArtista(id);
+                    editarCancionM();
                     break;
 
                 case 4:
@@ -179,7 +161,7 @@ public class viewAll {
         } while (opcioncancion != 5);
     }
 
-    public  void discos() {
+    public void discos() {
         int opciondisco;
         do {
             System.out.println("Bienvenido al menu Discos");
@@ -239,7 +221,7 @@ public class viewAll {
         } while (opciondisco != 5);
     }
 
-    public  void listasReproduccion() {
+    public void listasReproduccion() {
         int opcionlista;
         do {
             System.out.println("Bienvenido al menu Listas de Reproducción");
@@ -298,7 +280,7 @@ public class viewAll {
         } while (opcionlista != 5);
     }
 
-    public  void usuarios() {
+    public void usuarios() {
         int opcionusuario;
         do {
             System.out.println("Bienvenido al menu Usuarios");
@@ -378,13 +360,13 @@ public class viewAll {
                 System.out.println("Introduce el nombre del artista que quieras buscar");
                 String nombre = UIUtilities.getString();
                 System.out.println(control.buscarArtistaNombre(nombre));
-                
+
                 break;
             case 3:
                 System.out.println("Introduce la ID del artista que quieras buscar");
                 int id = UIUtilities.getInt();
                 System.out.println(control.buscarArtistaID(id));
-                
+
                 break;
             case 4:
                 artistas();
@@ -456,10 +438,6 @@ public class viewAll {
         }
     }
 
-  
-
-   
-
     public void crearArtistaM() {
         UIUtilities.clearScreen();
 
@@ -472,22 +450,50 @@ public class viewAll {
         Artista a = new Artista(nombre, nacionalidad, foto);
         crearArtistas(a);
     }
-    
-    public void editarArtistaM(){
-         UIUtilities.clearScreen();
-                    System.out.println("Introduce el id del artista  que quieras editar");
-        int id = UIUtilities.getInt();
-                    control.actualizarArtista(id);
-    }
-    public void borrarArtistaM(){
+
+    public void editarArtistaM() {
         UIUtilities.clearScreen();
-                    System.out.println("Introduce el id del Artista que quieras borrar");
+        System.out.println("Introduce el id del artista  que quieras editar");
         int id = UIUtilities.getInt();
-                    control.borrarArtista(id);
+        control.actualizarArtista(id);
     }
-    
-    public void listarArtistaM(){
-        
+
+    public void borrarArtistaM() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id del Artista que quieras borrar");
+        int id = UIUtilities.getInt();
+        control.borrarArtista(id);
+    }
+
+    public void crearCancionM() {
+
+        UIUtilities.clearScreen();
+        Cancion a = new Cancion();
+        System.out.println("Introduce el nombre");
+        String nombre = UIUtilities.getString();
+        a.setNombre(nombre);
+        System.out.println("Introduce la duracion");
+        int duracion = UIUtilities.getInt();
+        a.setDuracion(duracion);
+        System.out.println("Introduce el ID del Disco");
+        int id = UIUtilities.getInt();
+        a.setId_disco(duracion);
+        control.crearCancion(a);
+
+    }
+
+    public void editarCancionM() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id de la cancion que quieras editar");
+        int id = UIUtilities.getInt();
+        control.actualizarCancion(id);
+    }
+
+    public void borrarCancionM() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id de la cancion que quieras borrar");
+        int id = UIUtilities.getInt();
+        control.borrarArtista(id);
     }
 
 }

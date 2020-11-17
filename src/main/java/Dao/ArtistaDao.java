@@ -160,12 +160,13 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
 
     @Override
     public void remove() {
-        if (this.id != -1) {
+      
             try {
                 //Comienza transacción
                 con.setAutoCommit(false);
 
                 int rs = Util.ConnectionUtil.execUpdate(con, queries.REMOVE.getQ(), this.id, false);
+                System.out.println("saddasdd");
 
                 //Fin de la transacción
                 con.commit();
@@ -175,7 +176,7 @@ public class ArtistaDao extends com.mycompany.proyectoua2.model.Artista implemen
                 System.out.println("Error al borrar Artista");
             }
         }
-    }
+    
     // UTILS for CONTACT DAO
 
     public static Artista instanceBuilder(ResultSet rs) {
