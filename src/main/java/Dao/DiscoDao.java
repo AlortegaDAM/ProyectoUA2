@@ -12,7 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -132,9 +135,11 @@ public class DiscoDao extends Disco implements Dao {
     public void save() {
         queries q;
         List<Object> params = new ArrayList<>();
+        Date date = Date.from(getFecha_produccion().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        System.out.println(date+ "chochoooooooo");
         params.add(this.getNombre());
         params.add(this.getFoto());
-        params.add(this.getFecha_produccion());
+        params.add(date);
         params.add(this.getId_artista());
 
         if (this.id == -1) {

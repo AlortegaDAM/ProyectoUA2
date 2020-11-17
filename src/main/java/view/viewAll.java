@@ -12,6 +12,7 @@ import com.mycompany.proyectoua2.model.Cancion;
 import com.mycompany.proyectoua2.model.Disco;
 import com.mycompany.proyectoua2.model.Lista;
 import com.mycompany.proyectoua2.model.Usuario;
+import java.time.LocalDate;
 
 /**
  *
@@ -542,14 +543,18 @@ public class viewAll {
     
     public void crearDiscoM() {
         UIUtilities.clearScreen();
-        Disco a = new Disco();
+        
         System.out.println("Introduce el nombre");
         String nombre = UIUtilities.getString();
-        a.setNombre(nombre);
         System.out.println("Introduce la foto");
-        String foto = UIUtilities.getString();
-        a.setFoto(foto);           
+        String foto = UIUtilities.getString(); 
+        System.out.println("Introduce el id de Artista");
+        int id_artista = UIUtilities.getInt();  
+        Disco a = new Disco(nombre, foto, LocalDate.now(), id_artista);  
+        System.out.println(LocalDate.now());
         control.crearDisco(a);
+        
+   
     }
 
     public void editarDiscoM() {
