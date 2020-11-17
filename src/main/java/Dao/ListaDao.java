@@ -114,24 +114,24 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
             save();
         }
     }
-    
+
     public static List<Cancion> getAllSongs(Connection con, int idlista) {
         List<Cancion> result = new ArrayList<>();
         Cancion c = new Cancion();
-        String sqlp="SELECT T1.ID_Cancion, T2.ID, T2.Nombre, T2.Duracion, T2.ID_Disco\n" +
-                    "FROM lista_cancion T1, cancion T2\n" +
-                    "WHERE T1.ID_Cancion =  T2.ID\n" +
-                    "    AND T1.ID_Lista = ?";
+        String sqlp = "SELECT T1.ID_Cancion, T2.ID, T2.Nombre, T2.Duracion, T2.ID_Disco\n"
+                + "FROM lista_cancion T1, cancion T2\n"
+                + "WHERE T1.ID_Cancion =  T2.ID\n"
+                + "    AND T1.ID_Lista = ?";
         ResultSet rs;
-        try{
+        try {
             //establecer conexion
-           //con=cn.Conectar();
+            //con=cn.Conectar();
             //preparación de la sentencia SQL
             PreparedStatement ps;
             ps = con.prepareStatement(sqlp);
-            ps.setInt(1,idlista);
+            ps.setInt(1, idlista);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
                 c.setDuracion(rs.getInt("Duracion"));
@@ -139,11 +139,11 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
                 result.add(c);
             }
 
-
-    }   catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    return result;}
+        return result;
+    }
 
     @Override
     public void setId(int id) {
@@ -185,6 +185,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
 
     }
 
+    /*
     public void saveList_Song(int id_cancion) {
         queries q;
         List<Object> params = new ArrayList<>();
@@ -207,6 +208,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         }
 
     }
+     */
 
     public void remove() {
         if (this.id != -1) {
@@ -232,7 +234,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         Lista c = new Lista();
         if (rs != null) {
             try {
-                
+
                 c.setId(rs.getInt("ID"));
                 c.setNombre(rs.getString("Nombre"));
                 c.setDescripcion(rs.getString("Descripcion"));
@@ -259,10 +261,10 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
                     System.out.println("prueba1");
                     result.add(n);
                     System.out.println(n);
-                    
+
                 }
             }
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error al cargar lista");
         }
@@ -307,20 +309,63 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         String consulta = "SELECT * FROM lista where ID =?";
         try {
             PreparedStatement ps = con.prepareStatement(consulta);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 result.setId(rs.getInt("ID"));
                 result.setNombre(rs.getString("Nombre"));
                 result.setDescripcion(rs.getString("Descripcion"));
                 result.setId_usuario(rs.getInt("ID_Usuario"));
-                
+
             }
-            
+
         } catch (SQLException ex) {
             System.out.println("Error al cargar lista");
         }
         return result;
+    }
+
+    public void saveList_Song(int id_cancion) {
+        List<Cancion> result = new ArrayList<>();
+        Cancion c = new Cancion();
+        String sqlp = "SELECT ID_Cancion FROM lista_cancion where ID_Lista=?";
+        String del = "DELETE from lista_cancion where ID_Lista=?";
+        String ins = "INSERT INTO lista_cancion (ID_Lista, ID_Cancion) values(?,?)";
+        ResultSet rs;
+        try {
+
+            //preparación de la sentencia SQL que nos traerá los registros de la tabla n:M
+            PreparedStatement ps;
+            ps = con.prepareStatement(sqlp);
+            System.out.println(con);
+            ps.setInt(1, this.id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                c.setId(rs.getInt(1));
+                result.add(c);
+            }
+            c.setId(id_cancion);
+            result.add(c);
+            //Borro registros de la tabla n:m
+            PreparedStatement ps2;
+            ps2 = con.prepareStatement(del);
+            ps2.setInt(1, this.id);
+            ps2.executeUpdate();
+
+            for (int i = 0; i < result.size(); i++) {
+                PreparedStatement ps3;
+                ps3 = con.prepareStatement(ins);
+                ps3.setInt(1, this.id);
+                ps3.setInt(2, result.get(i).getId());
+
+                ps3.executeUpdate();
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        c.setId(id_cancion);
+        result.add(c);
     }
 
 }

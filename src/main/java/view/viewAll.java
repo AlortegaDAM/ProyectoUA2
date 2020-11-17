@@ -7,14 +7,11 @@ package view;
 
 import static Control.Controlador.crearArtistas;
 import Util.UIUtilities;
-import static Util.UIUtilities.espera;
 import com.mycompany.proyectoua2.model.Artista;
 import com.mycompany.proyectoua2.model.Cancion;
 import com.mycompany.proyectoua2.model.Disco;
 import com.mycompany.proyectoua2.model.Lista;
 import com.mycompany.proyectoua2.model.Usuario;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  *
@@ -513,20 +510,20 @@ public class viewAll {
     public void crearCancionM() {
 
         UIUtilities.clearScreen();
-        Cancion a = new Cancion();
         System.out.println("Introduce el nombre");
-        String nombre = UIUtilities.getString();
-        a.setNombre(nombre);
+        String nombre = UIUtilities.getString();        
         System.out.println("Introduce la duracion");
         int duracion = UIUtilities.getInt();
-        a.setDuracion(duracion);
         System.out.println("Introduce el ID del Disco");
         int id = UIUtilities.getInt();
-        a.setId_disco(duracion);
-        control.crearCancion(a);
+        Cancion c=new Cancion(nombre, duracion, id);
+        control.crearCancion(c);
 
     }
+    
+     
 
+ 
     public void editarCancionM() {
         UIUtilities.clearScreen();
         System.out.println("Introduce el id de la cancion que quieras editar");
@@ -571,13 +568,15 @@ public class viewAll {
 
     public void crearListaProd() {
         UIUtilities.clearScreen();
-        Lista a = new Lista();
+        
         System.out.println("Introduce el nombre");
         String nombre = UIUtilities.getString();
-        a.setNombre(nombre);
         System.out.println("Introduce la descripcion");
         String descripcion = UIUtilities.getString();
-        a.setDescripcion(descripcion);
+        System.out.println("Introduce un id de usuario");
+        int id_usuario = UIUtilities.getInt();
+        
+        Lista a = new Lista(nombre, descripcion, id_usuario);
         control.crearLista(a);
     }
 
