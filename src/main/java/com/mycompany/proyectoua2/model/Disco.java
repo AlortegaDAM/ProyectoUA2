@@ -34,13 +34,14 @@ public class Disco implements Serializable {
         this.nombre = nombre;
         this.foto = foto;
         this.id_artista = id_artista;
-        this.fecha_produccion = fecha_produccion;
+        ;
 
     }
 
     public Disco() {
         this.id=-1;
         this.nombre="";
+        this.fecha_produccion = LocalDate.now();
         this.foto="";
         this.id_artista=-1;
     }

@@ -13,6 +13,8 @@ import com.mycompany.proyectoua2.model.Cancion;
 import com.mycompany.proyectoua2.model.Disco;
 import com.mycompany.proyectoua2.model.Lista;
 import com.mycompany.proyectoua2.model.Usuario;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -65,6 +67,7 @@ public class viewAll {
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
+                    mainView();
                     break;
             }
 
@@ -112,6 +115,7 @@ public class viewAll {
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
+                    artistas();
 
             }
         } while (opcionartista != 5);
@@ -138,24 +142,25 @@ public class viewAll {
                     crearCancionM();
                     break;
 
-                case 2:
-                    borrarArtistaM();
+                case 2://NO EDIta
+                    editarCancionM();
                     break;
 
-                case 3:
-                    editarCancionM();
+                case 3: //NO BORRA
+                    borrarCancionM();
                     break;
 
                 case 4:
                     UIUtilities.clearScreen();
-                    // listarCancion();
-                    espera();
+                    listSong();
                     break;
 
                 case 5:
+                    mainView();
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
+                    canciones();
 
             }
         } while (opcioncancion != 5);
@@ -178,44 +183,28 @@ public class viewAll {
 
             switch (opciondisco) {
 
-                case 1:
-                    UIUtilities.clearScreen();
-                    Disco a = new Disco();
-                    System.out.println("Introduce el nombre");
-                    String nombre = UIUtilities.getString();
-                    a.setNombre(nombre);
-                    System.out.println("Introduce la foto");
-                    String foto = UIUtilities.getString();
-                    a.setFoto(foto);
-                    System.out.println("Introduce fecha de publicacion");
-                    //Fecha de publicacion
-                    //  a.setFecha_produccion(duracion);             
-                    //control.crearDisco(a);
+                case 1://NOCREA
+                    crearDiscoM();
                     break;
 
-                case 2:
-                    UIUtilities.clearScreen();
-                    System.out.println("Introduce el id del disco que quieras editar");
-                    int id = UIUtilities.getInt();
-                    control.actualizarDisco(id);
+                case 2://NO EDITA
+                    editarDiscoM();
                     break;
 
-                case 3:
-                    UIUtilities.clearScreen();
-                    System.out.println("Introduce el id del disco que quieras borrar");
-                    id = UIUtilities.getInt();
-                    control.borrarDisco(id);
+                case 3://NO BORRA
+                    borrarDiscoM();
                     break;
 
                 case 4:
-                    UIUtilities.clearScreen();
-
+                    listDisco();
                     break;
 
                 case 5:
+                    mainView();
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
+                    discos();
 
             }
         } while (opciondisco != 5);
@@ -238,43 +227,30 @@ public class viewAll {
 
             switch (opcionlista) {
 
-                case 1:
-                    UIUtilities.clearScreen();
-                    Lista a = new Lista();
-                    System.out.println("Introduce el nombre");
-                    String nombre = UIUtilities.getString();
-                    a.setNombre(nombre);
-                    System.out.println("Introduce la descripcion");
-                    String descripcion = UIUtilities.getString();
-                    a.setDescripcion(descripcion);
-
-                    control.crearLista(a);
+                case 1: //No crea
+                    crearListaProd();
                     break;
 
-                case 2:
-                    UIUtilities.clearScreen();
-                    System.out.println("Introduce el id de la lista que quieras editar");
-                    int id = UIUtilities.getInt();
-                    control.actualizarCancion(id);
+                case 2://No edita
+                    editListaProd();
                     break;
 
-                case 3:
-                    UIUtilities.clearScreen();
-                    System.out.println("Introduce el id de la lista que quieras borrar");
-                    id = UIUtilities.getInt();
-                    control.borrarArtista(id);
+                case 3://No borra
+                    borrarListaProd();
                     break;
 
                 case 4:
-                    UIUtilities.clearScreen();
-                    // listarLista();
-                    espera();
+
+                    listList();
+                    
                     break;
 
-                case 5:
+                case 5:mainView();
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
+                    listasReproduccion();
+                    
 
             }
         } while (opcionlista != 5);
@@ -327,8 +303,8 @@ public class viewAll {
 
                 case 4:
                     UIUtilities.clearScreen();
-                    //listarUsuario();
-                    espera();
+                    listUser();
+                   
                     break;
 
                 case 5:
@@ -374,11 +350,11 @@ public class viewAll {
         }
     }
 
-    public void listSong() {
+    public void listDisco() {
         int opcion = 0;
 
         do {
-            System.out.println("Listado de canciones");
+            System.out.println("Listado de Discos");
             System.out.println("1)Listar todos los discos");
             System.out.println("2)Listar todos los discos por nombre");
             System.out.println("3)Listar todos los discos por id");
@@ -388,29 +364,97 @@ public class viewAll {
 
         switch (opcion) {
             case 1:
-                control.mostrarDiscos();
+                System.out.println(control.mostrarDiscos());
                 break;
             case 2:
                 System.out.println("Introduce el nombre del disco que quieras buscar");
                 String nombre = UIUtilities.getString();
-                control.mostrarDiscosNombre(nombre);
+                System.out.println(control.mostrarDiscosNombre(nombre));
+
                 break;
             case 3:
-                System.out.println("Introduce la ID del cancion que quieras buscar");
+                System.out.println("Introduce la ID del disco que quieras buscar");
                 int id = UIUtilities.getInt();
-                control.buscarDiscoID(id);
+                System.out.println(control.buscarDiscoID(id));
+
                 break;
             case 4:
-                discos();
+                artistas();
                 break;
         }
     }
 
-    public void listUser() {
+    public void listSong() {
         int opcion = 0;
 
         do {
+            System.out.println("Listado de canciones");
+            System.out.println("1)Listar todos los cancion");
+            System.out.println("2)Listar todos los cancion por nombre");
+            System.out.println("3)Listar todos los cancion por id");
+            System.out.println("4)Volver atrás");
+            opcion = UIUtilities.getInt();
+        } while (opcion < 1 || opcion > 4);
+
+        switch (opcion) {
+            case 1:
+                System.out.println(control.mostrarCanciones());
+                break;
+            case 2:
+                System.out.println("Introduce el nombre de la cancion que quieras buscar");
+                String nombre = UIUtilities.getString();
+                System.out.println(control.mostrarCancionesNombre(nombre));
+
+                break;
+            case 3:
+                System.out.println("Introduce la ID del cancion que quieras buscar");
+                int id = UIUtilities.getInt();
+                System.out.println(control.buscarCancionID(id));
+                break;
+            case 4:
+                canciones();
+                break;
+        }
+    }
+    
+    public void listUser(){
+         int opcion = 0;
+
+        do {
             System.out.println("Listado de usuarios");
+            System.out.println("1)Listar todos los usuarios");
+            System.out.println("2)Listar todos los usuarios por nombre");
+            System.out.println("3)Listar todos los usuarios por id");
+            System.out.println("4)Volver atrás");
+            opcion = UIUtilities.getInt();
+        } while (opcion < 1 || opcion > 4);
+
+        switch (opcion) {
+            case 1:
+                System.out.println(control.mostrarListas());
+                break;
+            case 2:
+                System.out.println("Introduce el nombre de la lista que quieras buscar");
+                String nombre = UIUtilities.getString();
+                System.out.println(control.mostrarUsuariosNombre(nombre));
+                break;
+            case 3:
+                System.out.println("Introduce la ID de la lista que quieras buscar");
+                int id = UIUtilities.getInt();
+                System.out.println(control.buscarUsuarioID(id));
+
+                break;
+            case 4:
+                usuarios();
+                break;
+        }
+    }
+
+    public void listList() {
+        int opcion = 0;
+
+        do {
+            System.out.println("Listado de Listas");
             System.out.println("1)Listar todos los listas");
             System.out.println("2)Listar todos los listas por nombre");
             System.out.println("3)Listar todos los listas por id");
@@ -420,17 +464,18 @@ public class viewAll {
 
         switch (opcion) {
             case 1:
-                control.mostrarListas();
+                System.out.println(control.mostrarListas());
                 break;
             case 2:
                 System.out.println("Introduce el nombre de la lista que quieras buscar");
                 String nombre = UIUtilities.getString();
-                control.mostrarListasNombre(nombre);
+                System.out.println(control.mostrarListasNombre(nombre));
                 break;
             case 3:
-                System.out.println("Introduce la ID del usuarios que quieras buscar");
+                System.out.println("Introduce la ID de la lista que quieras buscar");
                 int id = UIUtilities.getInt();
-                control.buscarListaID(id);
+                System.out.println(control.buscarListaID(id));
+
                 break;
             case 4:
                 listasReproduccion();
@@ -494,6 +539,60 @@ public class viewAll {
         System.out.println("Introduce el id de la cancion que quieras borrar");
         int id = UIUtilities.getInt();
         control.borrarArtista(id);
+    }
+
+    
+    
+    public void crearDiscoM() {
+        UIUtilities.clearScreen();
+        Disco a = new Disco();
+        System.out.println("Introduce el nombre");
+        String nombre = UIUtilities.getString();
+        a.setNombre(nombre);
+        System.out.println("Introduce la foto");
+        String foto = UIUtilities.getString();
+        a.setFoto(foto);           
+        control.crearDisco(a);
+    }
+
+    public void editarDiscoM() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id del disco que quieras editar");
+        int id = UIUtilities.getInt();
+        control.actualizarDisco(id);
+    }
+
+    public void borrarDiscoM() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id del disco que quieras borrar");
+        int id = UIUtilities.getInt();
+        control.borrarDisco(id);
+    }
+
+    public void crearListaProd() {
+        UIUtilities.clearScreen();
+        Lista a = new Lista();
+        System.out.println("Introduce el nombre");
+        String nombre = UIUtilities.getString();
+        a.setNombre(nombre);
+        System.out.println("Introduce la descripcion");
+        String descripcion = UIUtilities.getString();
+        a.setDescripcion(descripcion);
+        control.crearLista(a);
+    }
+
+    public void editListaProd() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id de la lista que quieras editar");
+        int id = UIUtilities.getInt();
+        control.actualizarLista(id);
+    }
+
+    public void borrarListaProd() {
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id de la lista que quieras borrar");
+        int id = UIUtilities.getInt();
+        control.borrarLista(id);
     }
 
 }
