@@ -14,7 +14,7 @@ public class ArtistView {
     view.MainView main=new view.MainView();
     
 
-    public void artistas() {
+    public static void artistas() {
         int id;
         int opcionartista;
         do {
@@ -46,11 +46,13 @@ public class ArtistView {
                     break;
 
                 case 2:
-                    //FALTA POR HACER
                     UIUtilities.clearScreen();
+                    System.out.println("Introduce el id del artista  que quieras editar");
                     id = UIUtilities.getInt();
-
+                    control.actualizarArtista(id);
                     break;
+
+                 
 
                 case 3:
                     UIUtilities.clearScreen();

@@ -17,7 +17,7 @@ public class MainView {
     view.UserView u=new view.UserView();
 
     
-    public void mainView() {
+    public static void mainView() {
         
         int opciones;
         do {

@@ -54,8 +54,8 @@ public class Controlador implements IControlador{
         return result;
     }
 
-    @Override
-    public void crearArtista(Artista a) {
+   
+    public static void crearArtistas(Artista a) {
         ArtistaDao nuevoDao=new ArtistaDao(a);
         nuevoDao.save();
         a.setId(nuevoDao.getId());
@@ -68,9 +68,24 @@ public class Controlador implements IControlador{
         dao = new ArtistaDao(a);
         dao.save();
     }
+    
+   
+    public void actualizarArtistas(int id) {
+        ArtistaDao dao = new ArtistaDao();
+        Artista a = buscarArtistaID(id);
+        dao = new ArtistaDao(a);
+        dao.save();
+    }
 
     @Override
     public void borrarArtista(int id) {
+        Artista deleted = buscarArtistaID(id);
+        ArtistaDao dao = new ArtistaDao(deleted);
+        dao.remove();
+    }
+    
+    
+    public void borrarArtistas(int id) {
         Artista deleted = buscarArtistaID(id);
         ArtistaDao dao = new ArtistaDao(deleted);
         dao.remove();
@@ -260,6 +275,8 @@ public class Controlador implements IControlador{
         dao = new ListaDao();
         dao.save();    
     }
+    
+    
 
     @Override
     public void borrarLista(int id) {
@@ -351,6 +368,11 @@ public class Controlador implements IControlador{
         ListaDao dao = new ListaDao(l);
         result = dao.getAllSongs(con, listid);
         return result;
+    }
+
+    @Override
+    public void crearArtista(Artista a) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
