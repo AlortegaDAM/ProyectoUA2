@@ -218,7 +218,9 @@ public class viewAll {
             System.out.println("2.- Editar Lista de Reproducción");
             System.out.println("3.- Eliminar Lista de Reproducción");
             System.out.println("4.- Listado de Listas de Reproducción");
-            System.out.println("5.- Volver al menú principal");
+            System.out.println("5.- Ver las canciones de Listas de Reproducción");
+            System.out.println("6.- Meter cancione en Listas de Reproducción");
+            System.out.println("7.- Volver al menú principal");
             System.out.println("----------------------------");
 
             opcionlista = UIUtilities.getInt();
@@ -242,8 +244,20 @@ public class viewAll {
                     listList();
                     
                     break;
+                case 5:
 
-                case 5:mainView();
+                    getSongList();
+                    
+                    break;
+                    
+                case 6:
+
+                    addSongToList();
+                    
+                    break;
+
+
+                case 7:mainView();
                     break;
                 default:
                     System.out.println("Seleccione una opción válida");
@@ -598,5 +612,29 @@ public class viewAll {
         int id = UIUtilities.getInt();
         control.borrarLista(id);
     }
+    
+    public void  getSongList(){
+        UIUtilities.clearScreen();
+        System.out.println("Introduce el id de la lista para ver las canciones que tiene");
+        int id = UIUtilities.getInt();
+        System.out.println(control.getSongsByList(id));
+        
+    }
+    
+    public void addSongToList(){
+  
+                
+                
+                 UIUtilities.clearScreen();
+        
+        System.out.println("Introduce el id de la cancion");
+        int idSong = UIUtilities.getInt();
+        System.out.println("Introduce la id de la lista");
+        int idLista  = UIUtilities.getInt();
+        control.addSongToList(idSong, idLista);
+        
+       
+    }
+    }
 
-}
+
