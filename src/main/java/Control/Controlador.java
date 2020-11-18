@@ -11,6 +11,7 @@ import Dao.ComentarioDao;
 import Dao.DiscoDao;
 import Dao.ListaDao;
 import Dao.UsuarioDao;
+import Util.UIUtilities;
 import com.mycompany.proyectoua2.model.Artista;
 import com.mycompany.proyectoua2.model.Cancion;
 import com.mycompany.proyectoua2.model.Comentario;
@@ -18,6 +19,7 @@ import com.mycompany.proyectoua2.model.Disco;
 import com.mycompany.proyectoua2.model.Lista;
 import com.mycompany.proyectoua2.model.Usuario;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,18 +85,18 @@ public class Controlador implements IControlador{
  */
     @Override
     public void actualizarArtista(int id) {
-        ArtistaDao dao = new ArtistaDao();
-        Artista a = buscarArtistaID(id);
-        dao = new ArtistaDao(a);
+        Artista d = buscarArtistaID(id);
+        System.out.println("Introduce el nombre");
+        d.setNombre(UIUtilities.getString());
+        System.out.println("Introduce la nacionalidad");
+        d.setNacionalidad(UIUtilities.getString()); 
+        System.out.println("Introduce la Url de la foto");
+        d.setFoto(UIUtilities.getString());
+        ArtistaDao dao = new ArtistaDao(d);
         dao.save();
     }
     
-    public void actualizarArtistas(int id) {
-        ArtistaDao dao = new ArtistaDao();
-        Artista a = buscarArtistaID(id);
-        dao = new ArtistaDao(a);
-        dao.save();
-    }
+    
 /**
  * delete artist by id
  * @param id 
@@ -155,6 +157,7 @@ public class Controlador implements IControlador{
  */
     @Override
     public void crearDisco(Disco d) {
+        
         DiscoDao dao = new DiscoDao(d);
         dao.save();
             
@@ -167,9 +170,20 @@ public class Controlador implements IControlador{
  */
     @Override
     public void actualizarDisco(int id) {
-        DiscoDao dao = new DiscoDao();
         Disco d = buscarDiscoID(id);
-        dao = new DiscoDao(d);
+        System.out.println("Introduce el nombre");
+        d.setNombre(UIUtilities.getString());
+        System.out.println("Introduce la foto");
+        d.setFoto(UIUtilities.getString()); 
+        System.out.println("Introduce el id de Artista");
+        d.setId_artista(UIUtilities.getInt());
+        System.out.println("Introduce la fecha: Año, mes y dia");
+        int year = UIUtilities.getInt();
+        int month = UIUtilities.getInt();
+        int day = UIUtilities.getInt();
+        LocalDate fecha = LocalDate.of(year, month, day);
+        d.setFecha_produccion(fecha);
+        DiscoDao dao = new DiscoDao(d);
         dao.save();
     }
 /**

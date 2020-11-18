@@ -556,17 +556,20 @@ public class viewAll {
     
     
     public void crearDiscoM() {
-        UIUtilities.clearScreen();
-        
-        System.out.println("Introduce el nombre");
+       System.out.println("Introduce el nombre");
         String nombre = UIUtilities.getString();
         System.out.println("Introduce la foto");
         String foto = UIUtilities.getString(); 
         System.out.println("Introduce el id de Artista");
-        int id_artista = UIUtilities.getInt();  
-        Disco a = new Disco(nombre, foto, LocalDate.now(), id_artista);  
-        System.out.println(LocalDate.now());
+        int id_artista = UIUtilities.getInt();
+        System.out.println("Introduce la fecha: Año, mes y dia");
+        int year = UIUtilities.getInt();
+        int month = UIUtilities.getInt();
+        int day = UIUtilities.getInt();
+        LocalDate fecha = LocalDate.of(year, month, day);
+        Disco a = new Disco(nombre, foto, fecha, id_artista);
         control.crearDisco(a);
+        
         
    
     }
