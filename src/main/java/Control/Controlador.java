@@ -30,6 +30,12 @@ public class Controlador implements IControlador{
     JDBCConector conex = new JDBCConector();
     Connection con = conex.createNewDBconnection();
     
+    
+    /*
+    show all artists function
+     * @return List of all Artists
+    */
+    
     @Override
     public List<Artista> mostrarArtistas() {
         List<Artista> result = new ArrayList<>();
@@ -38,7 +44,11 @@ public class Controlador implements IControlador{
         return result;
     }
     
-
+    /**
+     * search artists by name
+     * @param nombre
+     * @return List of artists by name
+     */
     @Override
     public List<Artista> buscarArtistaNombre(String nombre) {
          ArtistaDao dao = new ArtistaDao();
@@ -46,7 +56,11 @@ public class Controlador implements IControlador{
          result = dao.getByName(con, nombre);
          return result;
     }
-
+/**
+ * search artist by id
+ * @param id
+ * @return Artista
+ */
     @Override
     public Artista buscarArtistaID(int id) {
         ArtistaDao dao = new ArtistaDao();
@@ -54,13 +68,19 @@ public class Controlador implements IControlador{
         return result;
     }
 
-   
+   /**
+    * create artist in database
+    * @param a 
+    */
     public static void crearArtistas(Artista a) {
         ArtistaDao nuevoDao=new ArtistaDao(a);
         nuevoDao.save();
         a.setId(nuevoDao.getId());
     }
-
+/**
+ * update artist by his id
+ * @param id 
+ */
     @Override
     public void actualizarArtista(int id) {
         ArtistaDao dao = new ArtistaDao();
@@ -69,14 +89,16 @@ public class Controlador implements IControlador{
         dao.save();
     }
     
-   
     public void actualizarArtistas(int id) {
         ArtistaDao dao = new ArtistaDao();
         Artista a = buscarArtistaID(id);
         dao = new ArtistaDao(a);
         dao.save();
     }
-
+/**
+ * delete artist by id
+ * @param id 
+ */
     @Override
     public void borrarArtista(int id) {
         Artista deleted = buscarArtistaID(id);
@@ -84,13 +106,19 @@ public class Controlador implements IControlador{
         dao.remove();
     }
     
-    
+    /**
+     * 
+     * @param id 
+     */
     public void borrarArtistas(int id) {
         Artista deleted = buscarArtistaID(id);
         ArtistaDao dao = new ArtistaDao(deleted);
         dao.remove();
     }
-
+/**
+ * Show All Disks
+ * @return List of Disks
+ */
     @Override
     public List<Disco> mostrarDiscos() {
         List<Disco> result = new ArrayList<>();
@@ -98,7 +126,11 @@ public class Controlador implements IControlador{
         result = dao.getAll(con);
         return result;
     }
-
+    /**
+     * Disks by name
+     * @param nombre as name of Disk
+     * @return List of Disks that called "nombre"
+     */
     @Override
     public List<Disco> mostrarDiscosNombre(String nombre) {
          DiscoDao dao = new DiscoDao();
@@ -106,14 +138,21 @@ public class Controlador implements IControlador{
          result = dao.getByName(con, nombre);
          return result;
     }
-
+/**
+ * Search disk by id
+ * @param id
+ * @return Disk 
+ */
     @Override
     public Disco buscarDiscoID(int id) {
         DiscoDao dao = new DiscoDao();
         Disco result = dao.getById(con, id);
         return result;
     }
-
+/**
+ * Create Disk
+ * @param d Disco
+ */
     @Override
     public void crearDisco(Disco d) {
         DiscoDao dao = new DiscoDao(d);
@@ -122,7 +161,10 @@ public class Controlador implements IControlador{
     }
     
     
-
+/**
+ * Update Disk by id
+ * @param id 
+ */
     @Override
     public void actualizarDisco(int id) {
         DiscoDao dao = new DiscoDao();
@@ -130,14 +172,21 @@ public class Controlador implements IControlador{
         dao = new DiscoDao(d);
         dao.save();
     }
-
+/**
+ * Delete Disk by id
+ * @param id 
+ */
     @Override
     public void borrarDisco(int id) {
         Disco deleted = buscarDiscoID(id);
         DiscoDao dao = new DiscoDao(deleted);
         dao.remove();
     }
-
+/**
+ * New Songs into Disk
+ * @param canciones as List of Cancion
+ * @param d as Disco
+ */
     @Override
     public void insertarCanciones(ArrayList<Cancion> canciones, Disco d) {
         DiscoDao dao = new DiscoDao(d);
@@ -148,7 +197,10 @@ public class Controlador implements IControlador{
         }
         d.setCanciones(canciones);
     }
-
+/**
+ * Show Songs
+ * @return List of songs
+ */
     @Override
     public List<Cancion> mostrarCanciones() {
        List<Cancion> result = new ArrayList<>();
@@ -156,7 +208,11 @@ public class Controlador implements IControlador{
        result = dao.getAll(con);
        return result;
     }
-
+/**
+ * Show Songs by name
+ * @param nombre
+ * @return Song who have that name
+ */
     @Override
     public List<Cancion> mostrarCancionesNombre(String nombre) {
        List<Cancion> result = new ArrayList<>();
@@ -164,20 +220,30 @@ public class Controlador implements IControlador{
        result = dao.getByName(con, nombre);
        return result;
     }
-
+/**
+ * Find Song by id
+ * @param id
+ * @return Song that have that id
+ */
     @Override
     public Cancion buscarCancionID(int id) {
         CancionDao dao = new CancionDao();
         Cancion result = dao.getById(con, id);
         return result;
     }
-
+/**
+ * New Song in database
+ * @param c as Song
+ */
     @Override
     public void crearCancion(Cancion c) {
         CancionDao dao = new CancionDao(c);
         dao.save();
     }
-
+/**
+ * Update Song by id
+ * @param id 
+ */
     @Override
     public void actualizarCancion(int id) {
         CancionDao dao = new CancionDao();
@@ -185,14 +251,20 @@ public class Controlador implements IControlador{
         dao = new CancionDao(c);
         dao.save();
     }
-
+/**
+ * Delete Song by id
+ * @param id 
+ */
     @Override
     public void borrarCancion(int id) {
         Cancion removed = buscarCancionID(id);
         CancionDao dao = new CancionDao(removed);
         dao.remove();
     }
-
+/**
+ * Show Users
+ * @return List of All Users
+ */
     @Override
     public List<Usuario> mostrarUsuarios() {
         List<Usuario> result = new ArrayList<>();
@@ -200,7 +272,11 @@ public class Controlador implements IControlador{
         result = dao.getAll(con);
         return result;
     }
-
+/**
+ * Show Users by name
+ * @param nombre as name
+ * @return User
+ */
     @Override
     public List<Usuario> mostrarUsuariosNombre(String nombre) {
         List<Usuario> result = new ArrayList<>();
@@ -208,7 +284,11 @@ public class Controlador implements IControlador{
         result = dao.getByName(con, nombre);
         return result;
     }
-
+/**
+ * Find User by id
+ * @param id
+ * @return User
+ */
     @Override
     public Usuario buscarUsuarioID(int id) {
 
@@ -216,13 +296,19 @@ public class Controlador implements IControlador{
         Usuario result = dao.getById(con, id);
         return result;
     }
-
+/**
+ * Create User in database
+ * @param u as User
+ */
     @Override
     public void crearUsuario(Usuario u) {
         UsuarioDao dao = new UsuarioDao(u);
         dao.save();
     }
-
+/**
+ * Update User by id
+ * @param id 
+ */
     @Override
     public void actualizarUsuario(int id) {
         UsuarioDao dao = new UsuarioDao();
@@ -230,7 +316,10 @@ public class Controlador implements IControlador{
         dao = new UsuarioDao(u);
         dao.save();   
     }
-
+/**
+ * Delete User by id
+ * @param id 
+ */
     @Override
     public void borrarUsuario(int id) {
         UsuarioDao dao = new UsuarioDao();
@@ -238,7 +327,10 @@ public class Controlador implements IControlador{
         dao = new UsuarioDao(removed);
         dao.remove();
     }
-
+/**
+ * Show Lists
+ * @return List of Lists
+ */
     @Override
     public List<Lista> mostrarListas() {
         List<Lista> result = new ArrayList<>();
@@ -246,7 +338,11 @@ public class Controlador implements IControlador{
         result = dao.getAll(con);
         return result;
     }
-
+/**
+ * Lists by name
+ * @param nombre as name of List
+ * @return List of Lists
+ */
     @Override
     public List<Lista> mostrarListasNombre(String nombre) {
         List<Lista> result = new ArrayList<>();
@@ -254,7 +350,11 @@ public class Controlador implements IControlador{
         result = dao.getByName(con, nombre);
         return result;
     }
-
+/**
+ * Find List by id
+ * @param id
+ * @return List
+ */
     @Override
     public Lista buscarListaID(int id) {
         Lista result = new Lista();
@@ -262,13 +362,19 @@ public class Controlador implements IControlador{
         result = dao.getById(con, id);
         return result;
     }
-
+/**
+ * Create new List in database
+ * @param l as List
+ */
     @Override
     public void crearLista(Lista l) {
         ListaDao dao = new ListaDao(l);
         dao.save();
     }
-
+/**
+ * UpdateList by id
+ * @param id 
+ */
     @Override
     public void actualizarLista(int id) {
         ListaDao dao = new ListaDao();
@@ -278,14 +384,20 @@ public class Controlador implements IControlador{
     }
     
     
-
+/**
+ * Delete List by id
+ * @param id 
+ */
     @Override
     public void borrarLista(int id) {
         Lista removed = buscarListaID(id);
         ListaDao dao = new ListaDao(removed);
         dao.remove();
     }
-
+/**
+ * Get comments
+ * @return List of comments
+ */
     @Override
     public List<Comentario> mostrarComentarios() {
         List<Comentario> result = new ArrayList<>();
@@ -293,7 +405,11 @@ public class Controlador implements IControlador{
         result = dao.getAll(con);
         return result;
     }
-
+/**
+ * Show comment by name
+ * @param nombre
+ * @return Comment
+ */
     @Override
     public List<Comentario> mostrarComentariosNombre(String nombre) {
         List<Comentario> result = new ArrayList<>();
@@ -301,20 +417,30 @@ public class Controlador implements IControlador{
         result = dao.getByName(con, nombre);
         return result;
     }
-
+/**
+ * Find Comment by id
+ * @param id
+ * @return Comment
+ */
     @Override
     public Comentario buscarComentarioID(int id) {
         ComentarioDao dao = new ComentarioDao();
         Comentario result = dao.getById(con, id);
         return result;
     }
-
+/**
+ * Create Comment in database
+ * @param c as Comment
+ */
     @Override
     public void crearComentario(Comentario c) {
         ComentarioDao dao = new ComentarioDao(c);
         dao.save();
     }
-
+/**
+ * Update Comment by id
+ * @param id 
+ */
     @Override
     public void actualizarComentario(int id) {
         ComentarioDao dao = new ComentarioDao();
@@ -322,14 +448,21 @@ public class Controlador implements IControlador{
         dao = new ComentarioDao(c);
         dao.save();
     }
-
+/**
+ * Delete Comment by id
+ * @param id 
+ */
     @Override
     public void borrarComentario(int id) {
         Comentario removed = buscarComentarioID(id);
         ComentarioDao dao= new ComentarioDao(removed);
         dao.remove();
     }
-
+/**
+ * Show Songs in Disk by id
+ * @param id as Disk id
+ * @return List of Songs
+ */
     @Override
     public List<Cancion> songsByDisk(int id) {
         List<Cancion> result = new ArrayList<>();
@@ -341,7 +474,11 @@ public class Controlador implements IControlador{
         }
         return result;
     }
-
+/**
+ * Show Disk who have an Artist
+ * @param id as Artist id
+ * @return List of Disks
+ */
     @Override
     public List<Disco> diskByArtist(int id) {
         List<Disco> result = new ArrayList<>();
@@ -354,14 +491,22 @@ public class Controlador implements IControlador{
         }
         return result;
     }
-
+/**
+ * Add Song to List
+ * @param songid as Song id
+ * @param listid as List id
+ */
     @Override
     public void addSongToList(int songid, int listid) {
         Lista l = buscarListaID(listid);
         ListaDao dao = new ListaDao(l);
-        dao.saveList_Song(songid);
+        dao.saveList_Song(songid, con);
     }
-
+/**
+ * Show Songs into an List by id
+ * @param listid as List id
+ * @return List of Songs
+ */
    @Override
     public List<Cancion> getSongsByList(int listid) {
         List<Cancion> result = new ArrayList<>();
@@ -370,13 +515,18 @@ public class Controlador implements IControlador{
         result = dao.getAllSongs(con, listid);
         return result;
     }
-
+/**
+ * Create Artist in database
+ * @param a as Artist
+ */
     @Override
     public void crearArtista(Artista a) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
-    
+      
 }
+
+    
+    
+    
+

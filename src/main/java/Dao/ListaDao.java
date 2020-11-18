@@ -47,7 +47,8 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
     Connection con;
     private boolean persist;
     JDBCConector conex = new JDBCConector();
-
+    
+    
     public ListaDao(int id, String nombre, String descripcion, int id_usuario) {
         super(nombre, descripcion, id_usuario);
         con = conex.createNewDBconnection();
@@ -124,8 +125,6 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
                 + "    AND T1.ID_Lista = ?";
         ResultSet rs;
         try {
-            //establecer conexion
-            //con=cn.Conectar();
             //preparación de la sentencia SQL
             PreparedStatement ps;
             ps = con.prepareStatement(sqlp);
@@ -210,6 +209,7 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
     }
      */
 
+    @Override
     public void remove() {
         if (this.id != -1) {
             try {
@@ -325,11 +325,11 @@ public class ListaDao extends com.mycompany.proyectoua2.model.Lista implements D
         return result;
     }
 
-    public void saveList_Song(int id_cancion) {
+    public void saveList_Song(int id_cancion, Connection con) {
         List<Cancion> result = new ArrayList<>();
         Cancion c = new Cancion();
         String sqlp = "SELECT ID_Cancion FROM lista_cancion where ID_Lista=?";
-        String del = "DELETE from lista_cancion where ID_Lista=?";
+        String del = "DELETE * from lista_cancion where ID_Lista=?";
         String ins = "INSERT INTO lista_cancion (ID_Lista, ID_Cancion) values(?,?)";
         ResultSet rs;
         try {
